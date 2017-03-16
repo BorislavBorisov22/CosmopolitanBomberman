@@ -1,0 +1,29 @@
+h1{
+
+    color: black;
+    width: 275px;
+    position: relative; /* or absolute */
+    text-align: center;
+    top: 50%;
+    left: 40%;
+}
+canvas {
+    border: 1px solid black;
+    background-color: white;
+    
+    Margin: 0 auto;
+    Vertical-align: middle;
+}
+
+body{
+    background: url(../images/bomb.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+}
+#game-container {
+    position: relative;
+    padding-left: 400px;
+}
