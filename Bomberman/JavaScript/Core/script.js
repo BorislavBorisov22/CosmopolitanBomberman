@@ -2,6 +2,7 @@ function createGame(selector) {
     let canvas = document.querySelector(selector);
     let ctx = canvas.getContext('2d');
     let hero = new Image();
+    let bombarmanEnemy = new Image();
 
 
 
@@ -10,7 +11,13 @@ function createGame(selector) {
         y: 30,
         size: 30,
         speed: 5
-    }
+    };
+    let enemy = {
+        x:300,
+        y:400,
+        size:15,
+        speed:3
+    };
 
     let dir = 0;
     let keyCodeDirs = {
@@ -18,7 +25,7 @@ function createGame(selector) {
         38: 3,
         39: 0,
         40: 1
-    }
+    };
 
     let dirDeltas = [
         {
@@ -56,6 +63,7 @@ function createGame(selector) {
     function gameLoop() {
         ctx.clearRect(0, 0, 1000, 800);
         drawBomberMan();
+        generateEnemy(bombarmanEnemy,ctx,enemy);
         updateBomberManPosition(bomberMan, canvas, dirDeltas, dir);
         window.requestAnimationFrame(gameLoop)
     }
