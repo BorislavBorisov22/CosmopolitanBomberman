@@ -1,6 +1,6 @@
 # CosmopolitanBomberman
 JS UI and DOM teamwork
-Members:
+Members: <br>
 Vlado Voev <br>
 Борислав Борисов <br>
 Марин Цанов <br>
