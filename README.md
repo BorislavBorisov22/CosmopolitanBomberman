@@ -1,10 +1,10 @@
 # CosmopolitanBomberman
 JS UI and DOM teamwork
 Members:
-Vlado Voev
-Борислав Борисов
-Марин Цанов
-Hristo Vasilev
-Владимир Петров
-Iskren Donev
-Monika Tzenova
+Vlado Voev <br>
+Борислав Борисов <br>
+Марин Цанов <br>
+Hristo Vasilev <br>
+Владимир Петров <br>
+Iskren Donev <br>
+Monika Tzenova <br>
