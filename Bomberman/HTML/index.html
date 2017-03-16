@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>The BomberMan</title>
     <link rel="stylesheet" href="../CSS/style.css">
+    <script src="../JavaScript/jquery-1.11.3.js"></script>
     <script src="../JavaScript/script.js"></script>
     <script src="../JavaScript/movement.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -14,6 +15,9 @@
 <h1>The BomberMan Game</h1>
 <div id="game-container">
     <canvas id="game-canvas" width="1000" height="800"></canvas>
+</div>
+<div id="player">
+    <img src="../Images/bombermanTest.png" alt="" id="bombermanImg">
 </div>
 <script>
     let game = createGame("#game-canvas");

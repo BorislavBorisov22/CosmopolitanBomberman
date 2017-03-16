@@ -1,6 +1,6 @@
-function updatePackManPosition(packman,canvas,dirDeltas,dir) {
-    packman.x = (packman.x+canvas.width)% canvas.width
-    packman.y = (packman.y+canvas.height)% canvas.height;
-    packman.x +=dirDeltas[dir].x;
-    packman.y +=dirDeltas[dir].y;
+function updateBomberManPosition(bomberMan,canvas,dirDeltas,dir) {
+    bomberMan.x = (bomberMan.x+canvas.width)% canvas.width
+    bomberMan.y = (bomberMan.y+canvas.height)% canvas.height;
+    bomberMan.x +=dirDeltas[dir].x;
+    bomberMan.y +=dirDeltas[dir].y;
 }
