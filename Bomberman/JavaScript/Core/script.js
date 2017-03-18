@@ -5,7 +5,7 @@ function createGame(selector) {
     let bombarmanEnemy = new Image();
 
 
-    const field = {
+    const field = [
         "*******************",
         "*                 *",
         "* * * * * * * * * *",
@@ -18,8 +18,8 @@ function createGame(selector) {
         "*                 *",
         "* * * * * * * * * *",
         "*                 *",
-        "*******************",
-    };
+        "*******************"
+    ];
 
     let bomberMan = {
         x: 30,
