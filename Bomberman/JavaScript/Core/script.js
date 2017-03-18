@@ -57,6 +57,7 @@ function createGame(selector) {
             return;
         }
         dir = keyCodeDirs[ev.keyCode];
+        updateBomberManPosition(bomberMan, canvas, dirDeltas, dir);
     })
 
 
@@ -64,7 +65,6 @@ function createGame(selector) {
         ctx.clearRect(0, 0, 1000, 800);
         drawBomberMan();
         generateEnemy(bombarmanEnemy,ctx,enemy);
-        updateBomberManPosition(bomberMan, canvas, dirDeltas, dir);
         window.requestAnimationFrame(gameLoop)
     }
 
