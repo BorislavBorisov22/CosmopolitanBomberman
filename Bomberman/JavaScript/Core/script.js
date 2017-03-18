@@ -8,7 +8,7 @@ function createGame(selector) {
 
     let bomberMan = {
         x: 30,
-        y: 30,
+        y: 268,
         size: 30,
         speed: 20
     };
