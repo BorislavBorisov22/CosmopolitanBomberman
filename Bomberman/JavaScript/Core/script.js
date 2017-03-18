@@ -2,9 +2,12 @@ function createGame(selector) {
     let canvas = document.querySelector(selector);
     let ctx = canvas.getContext('2d');
     let hero = new Image();
+    let bomb = new Image();
     let bombarmanEnemy = new Image();
+
     const enemyDefaultSpeed = 1;
     const wallOffset = 20;
+    const bombPixels = 60;
 
 
     const field = [
@@ -22,12 +25,13 @@ function createGame(selector) {
         "*                 *",
         "*******************"
     ];
-
+    
     let bomberMan = {
         x: 30,
         y: 268,
         size: 30,
-        speed: 20
+        speed: 20,
+        bomb:1
     };
     let enemy = {
         x:60,
@@ -85,7 +89,39 @@ function createGame(selector) {
         drawBomberMan();
         generateEnemy(bombarmanEnemy,ctx,enemy);
         updateEnemyPosition(bombarmanEnemy);
+        //Bomberman can now place a bomb on the field but it is only visible if debugging
+        //Need a function to render the bomb [Vlado]
+        isBombPlacedOnField(bomberMan);
         window.requestAnimationFrame(gameLoop)
+    }
+
+    function isBombPlacedOnField(bomberMan) {
+        document.body.addEventListener("keydown",function (ev) {
+            if(ev.keyCode === 32){
+                bomb.src = '../Images/bomb.png';
+
+                switch (dir) {
+                    //bomb should be put on top
+                    case 3: ctx.drawImage(bomb,bomberMan.x, bomberMan.y-bombPixels);
+                        break;
+
+                    //bomb should be put on right
+                    case 0: ctx.drawImage(bomb,bomberMan.x + bombPixels, bomberMan.y);
+                        break;
+
+                    //bomb should be put on bottom
+                    case 1: ctx.drawImage(bomb,bomberMan.x, bomberMan.y + bombPixels);
+                        break;
+
+                    //bomb should be put on left
+                    case 2: ctx.drawImage(bomb,bomberMan.x - bombPixels, bomberMan.y);
+                        break;
+
+                }
+                bomberMan.bomb -=1;
+
+            }
+        })
     }
 
     function drawBomberMan() {
