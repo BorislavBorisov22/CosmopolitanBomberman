@@ -3,6 +3,8 @@ function createGame(selector) {
     let ctx = canvas.getContext('2d');
     let hero = new Image();
     let bombarmanEnemy = new Image();
+    const enemyDefaultSpeed = 1;
+    const wallOffset = 20;
 
 
     const field = [
@@ -28,10 +30,12 @@ function createGame(selector) {
         speed: 20
     };
     let enemy = {
-        x:300,
-        y:400,
+        x:60,
+        y:10,
         size:15,
-        speed:3
+        speed:3,
+        moveRight:true,
+        moveLeft:false
     };
 
     let dir = 0;
@@ -80,12 +84,40 @@ function createGame(selector) {
         ctx.clearRect(0, 0, 1000, 800);
         drawBomberMan();
         generateEnemy(bombarmanEnemy,ctx,enemy);
+        updateEnemyPosition(bombarmanEnemy);
         window.requestAnimationFrame(gameLoop)
     }
 
     function drawBomberMan() {
         hero.src = '../Images/bombermanTest.png';
         ctx.drawImage(hero,bomberMan.x, bomberMan.y);
+    }
+
+    function updateEnemyPosition(bombarmanEnemy) {
+        bombarmanEnemy.src = '../Images/enemy.jpg';
+
+        checkForOutOfBoundaries(enemy);
+
+        if(enemy.moveRight === true && enemy.moveLeft === false){
+            enemy.x += enemyDefaultSpeed;
+        }
+        if(enemy.moveRight === false && enemy.moveLeft === true){
+            enemy.x -= enemyDefaultSpeed;
+        }
+
+        ctx.drawImage(bombarmanEnemy,enemy.x, enemy.y);
+
+        function checkForOutOfBoundaries(enemy) {
+            if(enemy.x > canvas.width - wallOffset){
+                enemy.moveRight = false;
+                enemy.moveLeft = true;
+            }
+            if(enemy.x < 0){
+                enemy.moveRight = true;
+                enemy.moveLeft = false;
+            }
+        }
+        
     }
     
     return{
