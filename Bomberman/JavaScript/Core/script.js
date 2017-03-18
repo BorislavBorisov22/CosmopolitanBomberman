@@ -22,7 +22,7 @@ function createGame(selector) {
 
     let bomberMan = {
         x: 30,
-        y: 20,
+        y: 268,
         size: 30,
         speed: 20
     };
