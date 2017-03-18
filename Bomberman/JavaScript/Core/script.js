@@ -5,12 +5,26 @@ function createGame(selector) {
     let bombarmanEnemy = new Image();
 
 
+    const field = {
+        "*******************",
+        "*                 *",
+        "* * * * * * * * * *",
+        "*                 *",
+        "* * * * * * * * * *",
+        "*                 *",
+        "* * * * * * * * * *",
+        "*                 *",
+        "* * * * * * * * * *",
+        "*                 *",
+        "* * * * * * * * * *",
+        "*******************",
+    };
 
     let bomberMan = {
         x: 30,
-        y: 30,
+        y: 20,
         size: 30,
-        speed: 5
+        speed: 20
     };
     let enemy = {
         x:300,
@@ -43,8 +57,8 @@ function createGame(selector) {
         {
             x: 0,
             y: -bomberMan.speed
-        },
-    ]
+        }
+    ];
     /*
      0 => right
      1 => down
@@ -58,7 +72,7 @@ function createGame(selector) {
         }
         dir = keyCodeDirs[ev.keyCode];
         updateBomberManPosition(bomberMan, canvas, dirDeltas, dir);
-    })
+    });
 
 
     function gameLoop() {
