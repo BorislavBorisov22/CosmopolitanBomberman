@@ -10,7 +10,7 @@ function createGame(selector) {
         x: 30,
         y: 30,
         size: 30,
-        speed: 5
+        speed: 20
     };
     let enemy = {
         x:300,
