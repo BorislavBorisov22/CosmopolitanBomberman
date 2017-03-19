@@ -99,8 +99,8 @@ function createGame(selector) {
     });
 
     let enemy = {
-        x: 60,
-        y: 10,
+        x: CELL_SIZE,
+        y: CELL_SIZE,
         size: 15,
         speed: 3,
         moveRight: true,
@@ -168,7 +168,8 @@ function createGame(selector) {
         ctx.clearRect(0, 0, 1000, 800);
         //drawBomberMan();
         bomberman.render({ x: bomberManPhysicalBody.x, y: bomberManPhysicalBody.y }).update();
-        drawExitGate(exitGate, ctxBomb, door);
+        //TODO function to be invoked when the block is BLOWN!
+        //drawExitGate(exitGate, ctx, door);
         generateEnemy(bombarmanEnemy, ctx, enemy);
         updateEnemyPosition(bombarmanEnemy);
         if (isColide(bomberManPhysicalBody, enemy)) {
@@ -203,7 +204,7 @@ function createGame(selector) {
     }
 
     function updateEnemyPosition(bombarmanEnemy) {
-        bombarmanEnemy.src = '../Images/enemy.jpg';
+        bombarmanEnemy.src = '../Images/enemy.png';
 
         checkForOutOfBoundaries(enemy);
 
