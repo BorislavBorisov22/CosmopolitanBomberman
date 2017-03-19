@@ -10,6 +10,7 @@ function createGame(selector) {
         ctxBomb = bombCanvas.getContext('2d');
 
     bombCanvas.style.border = '1px solid blue';
+    bombCanvas.style.backgroundColor = 'green';
 
     const enemyDefaultSpeed = 1;
     const wallOffset = 20;
