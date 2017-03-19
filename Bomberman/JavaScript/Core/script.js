@@ -11,7 +11,6 @@ function createGame(selector) {
     let bombarmanEnemy = new Image();
     let door = { x: 1, y: 1, isDoorPlaced: false };
 
-
     let wall = document.getElementById('wall-image');
     let brick = document.getElementById('brick-image');
     const bombCanvas = document.getElementById('bomb-canvas'),
@@ -85,13 +84,20 @@ function createGame(selector) {
         }
     }
 
-    let bomberMan = {
+    let bomberManPhysicalBody = {
         x: 30,
         y: 268,
         size: CELL_SIZE,
         speed: CELL_SIZE,
         bomb: 3
     };
+
+    const bomberman = createBomberman({
+        context: ctx,
+        width: CELL_SIZE,
+        height: CELL_SIZE,
+    });
+
     let enemy = {
         x: 60,
         y: 10,
@@ -110,21 +116,21 @@ function createGame(selector) {
     };
 
     let dirDeltas = [{
-        x: +bomberMan.speed,
-        y: 0
-    },
-    {
-        x: 0,
-        y: +bomberMan.speed
-    },
-    {
-        x: -bomberMan.speed,
-        y: 0
-    },
-    {
-        x: 0,
-        y: -bomberMan.speed
-    }
+            x: +bomberManPhysicalBody.speed,
+            y: 0
+        },
+        {
+            x: 0,
+            y: +bomberManPhysicalBody.speed
+        },
+        {
+            x: -bomberManPhysicalBody.speed,
+            y: 0
+        },
+        {
+            x: 0,
+            y: -bomberManPhysicalBody.speed
+        }
     ];
     /*
      0 => right
@@ -132,24 +138,25 @@ function createGame(selector) {
      2 => left
      3 => up
      */
-
-    document.body.addEventListener("keydown", function (ev) {
+    let lastCoordinates = { x: bomberManPhysicalBody.x, y: bomberManPhysicalBody.y };
+    document.body.addEventListener("keydown", function(ev) {
         if (!keyCodeDirs.hasOwnProperty(ev.keyCode)) {
             return;
         }
 
         dir = keyCodeDirs[ev.keyCode];
-        updateBomberManPosition(bomberMan, canvas, dirDeltas, dir);
+        updateBomberManPosition(bomberman, canvas, dirDeltas, dir);
     });
 
-    document.body.addEventListener("keydown", function (ev) {
+    document.body.addEventListener("keydown", function(ev) {
         if (ev.keyCode === 32 && bomberMan.bomb > 0) {
             bomb.src = '../Images/bomb.png';
             ctxBomb.drawImage(bomb, bomberMan.x, bomberMan.y);
             bomberMan.bomb -= 1;
-            setTimeout(function () {
+
+            setTimeout(function() {
                 //TODO Bomb should explode
-                alert('boom')
+                alert('boom');
                 ctxBomb.clearRect(0, 0, 999, 555);
             }, 3000);
         }
@@ -159,11 +166,12 @@ function createGame(selector) {
 
     function gameLoop() {
         ctx.clearRect(0, 0, 1000, 800);
-        drawBomberMan();
+        //drawBomberMan();
+        bomberman.render({ x: bomberManPhysicalBody.x, y: bomberManPhysicalBody.y }).update();
         drawExitGate(exitGate, ctxBomb, door);
         generateEnemy(bombarmanEnemy, ctx, enemy);
         updateEnemyPosition(bombarmanEnemy);
-        if (isColide(bomberMan, enemy)) {
+        if (isColide(bomberManPhysicalBody, enemy)) {
             //TODO Game Over
         }
         window.requestAnimationFrame(gameLoop);
