@@ -9,6 +9,8 @@ function createGame(selector) {
     let bomb = document.getElementById('bomb-image');
     let exitGate = new Image();
     let bombarmanEnemy = new Image();
+    let door = { x: 1, y: 1, isDoorPlaced: false };
+
 
     let wall = document.getElementById('wall-image');
     let brick = document.getElementById('brick-image');
@@ -49,18 +51,25 @@ function createGame(selector) {
 
     (function putBricksRandomly(matrix) {
         for (let i = 0; i < 50; i += 1) {
+            // debugger;
             let row = getRandomInt(1, 14);
             let col = getRandomInt(1, 26);
-
             // debugger;
             if (row % 2 === 0 || col % 2 === 0) {
                 i -= 1;
             } else {
                 matrix[row] = matrix[row].substr(0, col) + BRICK_CHAR + matrix[row].substr(col + 1);
             }
+
+            if (door.isDoorPlaced === false) {
+                // debugger;
+                door.x = row, door.y = col;
+                isDoorPlaced = true;
+            }
+
+            console.log(door.x, door.y);
         }
     })(field);
-    console.log(field);
 
     for (let i = 0; i < field.length; i++) {
         for (let j = 0; j < field[0].length; j++) {
@@ -72,8 +81,6 @@ function createGame(selector) {
             }
         }
     }
-
-    console.log(brick);
 
     let bomberMan = {
         x: 30,
@@ -137,10 +144,10 @@ function createGame(selector) {
             bomb.src = '../Images/bomb.png';
             ctxBomb.drawImage(bomb, bomberMan.x, bomberMan.y);
             bomberMan.bomb -= 1;
-            setTimeout(function(){
+            setTimeout(function () {
                 //TODO Bomb should explode
                 alert('boom')
-                ctxBomb.clearRect(0,0,999,555);
+                ctxBomb.clearRect(0, 0, 999, 555);
             }, 3000);
         }
 
