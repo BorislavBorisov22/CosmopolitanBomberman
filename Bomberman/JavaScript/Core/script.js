@@ -69,14 +69,19 @@ function createGame(selector) {
         }
     })(field);
 
+    let nonWalkables = [];
+
     for (let i = 0; i < field.length; i++) {
         for (let j = 0; j < field[0].length; j++) {
             let symbol = field[i][j];
             if (symbol === WALL_CHAR) {
                 ctxBomb.drawImage(wall, 0, 0, wall.width, wall.height, j * CELL_SIZE, i * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+                nonWalkables.push({x: CELL_SIZE * j, y: CELL_SIZE * i});
             } else if (symbol === BRICK_CHAR) {
                 ctxBomb.drawImage(brick, 0, 0, brick.width, brick.height, j * CELL_SIZE, i * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+                nonWalkables.push({x: CELL_SIZE * j, y: CELL_SIZE * i});
             }
+
         }
     }
 
