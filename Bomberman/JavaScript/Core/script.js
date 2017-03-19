@@ -62,14 +62,10 @@ function createGame(selector) {
             }
 
             if (door.isDoorPlaced === false) {
-                // debugger;
-
                 door.x = col;
                 door.y = row;
                 door.isDoorPlaced = true;
             }
-
-
         }
     })(field);
 
@@ -85,10 +81,10 @@ function createGame(selector) {
     }
 
     let bomberManPhysicalBody = {
-        x: 30,
-        y: 268,
+        x: CELL_SIZE,
+        y: CELL_SIZE * 3,
         size: CELL_SIZE,
-        speed: CELL_SIZE,
+        speed: CELL_SIZE / 4,
         bomb: 3
     };
 
@@ -144,24 +140,34 @@ function createGame(selector) {
             return;
         }
 
+        bomberman.update = bomberman.lastUpdate;
+
         dir = keyCodeDirs[ev.keyCode];
-        updateBomberManPosition(bomberman, canvas, dirDeltas, dir);
+        updateBomberManPosition(bomberManPhysicalBody, canvas, dirDeltas, dir);
+        bomberman.updateSprite(dir);
     });
 
+    // placing bombs
     document.body.addEventListener("keydown", function(ev) {
-        if (ev.keyCode === 32 && bomberMan.bomb > 0) {
+        if (ev.keyCode === 32 && bomberManPhysicalBody.bomb > 0) {
             bomb.src = '../Images/bomb.png';
-            ctxBomb.drawImage(bomb, bomberMan.x, bomberMan.y);
-            bomberMan.bomb -= 1;
+            ctxBomb.drawImage(bomb, bomberManPhysicalBody.x, bomberManPhysicalBody.y);
+            bomberManPhysicalBody.bomb -= 1;
 
             setTimeout(function() {
                 //TODO Bomb should explode
                 alert('boom');
-                ctxBomb.clearRect(0, 0, 999, 555);
+                ctxBomb.clearRect(0, 0, bomberManPhysicalBody.x, bomberManPhysicalBody.y);
             }, 3000);
         }
+    });
 
+    document.body.addEventListener('keyup', function(ev) {
+        const keyCodes = [37, 38, 39, 40];
 
+        if (keyCodes.indexOf(ev.keyCode) >= 0) {
+            bomberman.update = function() {};
+        }
     });
 
     function gameLoop() {

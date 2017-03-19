@@ -1,7 +1,11 @@
+ 'use strict';
+
  const leftImg = document.getElementById('left'),
      rightImg = document.getElementById('right'),
      upImg = document.getElementById('up'),
      downImg = document.getElementById('down');
+
+ const sprites = [rightImg, downImg, leftImg, upImg];
 
  function createBomberman(options) {
 
@@ -26,7 +30,6 @@
          return self;
      }
 
-
      function update() {
          const self = this;
 
@@ -47,6 +50,10 @@
          return self;
      }
 
+     function updateSprite(dir) {
+         this.spriteSheet = sprites[dir];
+     }
+
      return {
          context: options.context,
          spriteSheet: rightImg,
@@ -57,6 +64,8 @@
          currentSpriteIndex: 0,
          currentTicks: 0,
          render: render,
-         update: update
+         update: update,
+         updateSprite: updateSprite,
+         lastUpdate: update
      };
  }
