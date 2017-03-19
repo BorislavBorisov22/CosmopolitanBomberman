@@ -104,18 +104,6 @@ function createGame(selector) {
     });
 
 
-    function gameLoop() {
-        ctx.clearRect(0, 0, 1000, 800);
-        drawBomberMan();
-        generateEnemy(bombarmanEnemy,ctx,enemy);
-        updateEnemyPosition(bombarmanEnemy);
-        //Bomberman can now place a bomb on the field but it is only visible if debugging
-        //Need a function to render the bomb [Vlado]
-        isBombPlacedOnField(bomberMan);
-        window.requestAnimationFrame(gameLoop)
-    }
-
-    function isBombPlacedOnField(bomberMan) {
         document.body.addEventListener("keydown",function (ev) {
             if(ev.keyCode === 32){
                 bomb.src = '../Images/bomb.png';
@@ -142,7 +130,19 @@ function createGame(selector) {
 
             }
         })
+
+
+    function gameLoop() {
+        ctx.clearRect(0, 0, 1000, 800);
+        drawBomberMan();
+        generateEnemy(bombarmanEnemy,ctx,enemy);
+        updateEnemyPosition(bombarmanEnemy);
+        //Bomberman can now place a bomb on the field but it is only visible if debugging
+        //Need a function to render the bomb [Vlado]
+        window.requestAnimationFrame(gameLoop)
     }
+
+
 
     function drawBomberMan() {
         hero.src = '../Images/bombermanTest.png';

@@ -10,6 +10,7 @@ h1{
 canvas {
     border: 1px solid black;
     background-color: white;
+    position: absolute;
 
     Margin: 0 auto;
     Vertical-align: middle;
