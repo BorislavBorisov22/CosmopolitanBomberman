@@ -93,8 +93,8 @@ function createGame(selector) {
         bomb: 3
     };
     let enemy = {
-        x: 60,
-        y: 10,
+        x: CELL_SIZE,
+        y: CELL_SIZE,
         size: 15,
         speed: 3,
         moveRight: true,
@@ -160,7 +160,8 @@ function createGame(selector) {
     function gameLoop() {
         ctx.clearRect(0, 0, 1000, 800);
         drawBomberMan();
-        drawExitGate(exitGate, ctxBomb, door);
+        //TODO function to be invoked when the block is BLOWN!
+        //drawExitGate(exitGate, ctx, door);
         generateEnemy(bombarmanEnemy, ctx, enemy);
         updateEnemyPosition(bombarmanEnemy);
         if (isColide(bomberMan, enemy)) {
