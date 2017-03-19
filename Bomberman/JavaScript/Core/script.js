@@ -196,7 +196,7 @@ function createGame(selector) {
     }
 
     function updateEnemyPosition(bombarmanEnemy) {
-        bombarmanEnemy.src = '../Images/enemy.jpg';
+        bombarmanEnemy.src = '../Images/enemy.png';
 
         checkForOutOfBoundaries(enemy);
 
