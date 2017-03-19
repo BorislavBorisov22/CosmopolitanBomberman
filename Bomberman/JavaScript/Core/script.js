@@ -1,4 +1,8 @@
 function createGame(selector) {
+    const CELL_SIZE = 37;
+    const WALL_CHAR = '*';
+    const BRICK_CHAR = '-';
+
     let canvas = document.querySelector(selector);
     let ctx = canvas.getContext('2d');
     let hero = new Image();
@@ -6,6 +10,8 @@ function createGame(selector) {
     let exitGate = new Image();
     let bombarmanEnemy = new Image();
 
+    let wall = document.getElementById('wall-image');
+    let brick = document.getElementById('brick-image');
     const bombCanvas = document.getElementById('bomb-canvas'),
         ctxBomb = bombCanvas.getContext('2d');
 
@@ -34,29 +40,46 @@ function createGame(selector) {
         "***************************"
     ];
 
+
     function getRandomInt(min, max) {
         min = Math.ceil(min);
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min)) + min;
     }
 
-    (function putBricksRandomly(field) {
+    (function putBricksRandomly(matrix) {
         for (let i = 0; i < 50; i += 1) {
             let row = getRandomInt(1, 14);
             let col = getRandomInt(1, 26);
-            if (row % 2 === 0 && col % 2 === 0) {
+
+            // debugger;
+            if (row % 2 === 0 || col % 2 === 0) {
                 i -= 1;
             } else {
-                field[row][col] = '-';
+                matrix[row] = matrix[row].substr(0, col) + BRICK_CHAR + matrix[row].substr(col + 1);
             }
         }
     })(field);
+    console.log(field);
+
+    for (let i = 0; i < field.length; i++) {
+        for (let j = 0; j < field[0].length; j++) {
+            let symbol = field[i][j];
+            if (symbol === WALL_CHAR) {
+                ctxBomb.drawImage(wall, 0, 0, wall.width, wall.height, j * CELL_SIZE, i * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+            } else if (symbol === BRICK_CHAR) {
+                ctxBomb.drawImage(brick, 0, 0, brick.width, brick.height, j * CELL_SIZE, i * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+            }
+        }
+    }
+
+    console.log(brick);
 
     let bomberMan = {
         x: 30,
         y: 268,
-        size: 37,
-        speed: 37,
+        size: CELL_SIZE,
+        speed: CELL_SIZE,
         bomb: 3
     };
     let enemy = {
@@ -80,18 +103,18 @@ function createGame(selector) {
         x: +bomberMan.speed,
         y: 0
     },
-        {
-            x: 0,
-            y: +bomberMan.speed
-        },
-        {
-            x: -bomberMan.speed,
-            y: 0
-        },
-        {
-            x: 0,
-            y: -bomberMan.speed
-        }
+    {
+        x: 0,
+        y: +bomberMan.speed
+    },
+    {
+        x: -bomberMan.speed,
+        y: 0
+    },
+    {
+        x: 0,
+        y: -bomberMan.speed
+    }
     ];
     /*
      0 => right
@@ -123,7 +146,7 @@ function createGame(selector) {
         drawExitGate(exitGate, ctx);
         generateEnemy(bombarmanEnemy, ctx, enemy);
         updateEnemyPosition(bombarmanEnemy);
-        if(isColide(bomberMan, enemy)){
+        if (isColide(bomberMan, enemy)) {
             //TODO Game Over
         }
         window.requestAnimationFrame(gameLoop);
