@@ -101,7 +101,7 @@ function createGame(selector) {
 
     let enemy = {
         x: CELL_SIZE,
-        y: CELL_SIZE,
+        y: CELL_SIZE + 5, //centralize enemy
         size: 15,
         speed: 3,
         moveRight: true,
