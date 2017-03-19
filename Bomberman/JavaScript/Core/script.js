@@ -3,6 +3,7 @@ function createGame(selector) {
     let ctx = canvas.getContext('2d');
     let hero = new Image();
     let bomb = new Image();
+    let exitGate = new Image();
     let bombarmanEnemy = new Image();
 
     const enemyDefaultSpeed = 1;
@@ -127,7 +128,6 @@ function createGame(selector) {
 
                 }
                 bomberMan.bomb -=1;
-
             }
         })
 
@@ -135,6 +135,7 @@ function createGame(selector) {
     function gameLoop() {
         ctx.clearRect(0, 0, 1000, 800);
         drawBomberMan();
+        drawExitGate(exitGate,ctx);
         generateEnemy(bombarmanEnemy,ctx,enemy);
         updateEnemyPosition(bombarmanEnemy);
         //Bomberman can now place a bomb on the field but it is only visible if debugging
