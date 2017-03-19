@@ -25,6 +25,26 @@ function createGame(selector) {
         "*                 *",
         "*******************"
     ];
+
+    function getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min)) + min;
+    }
+    
+    function putBricksRandomly() {
+        for (let i = 0; i < 30; i += 1) {
+            let row = getRandomInt(1, 18);
+            let col = getRandomInt(1, 12);
+            if (row % 2 === 0 && col % 2 === 0) {
+                i-=1;
+                continue;
+            } else {
+                field[row][col] = '-';
+            }
+
+        }
+    }
     
     let bomberMan = {
         x: 30,
