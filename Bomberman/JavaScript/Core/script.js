@@ -137,7 +137,14 @@ function createGame(selector) {
             bomb.src = '../Images/bomb.png';
             ctxBomb.drawImage(bomb, bomberMan.x, bomberMan.y);
             bomberMan.bomb -= 1;
+            setTimeout(function(){
+                //TODO Bomb should explode
+                alert('boom')
+                ctxBomb.clearRect(0,0,999,555);
+            }, 3000);
         }
+
+
     });
 
     function gameLoop() {
@@ -170,8 +177,6 @@ function createGame(selector) {
         }
 
         return false;
-
-
     }
 
     function drawBomberMan() {
