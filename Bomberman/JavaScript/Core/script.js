@@ -74,9 +74,9 @@ function createGame(selector) {
     };
 
     let dirDeltas = [{
-            x: +bomberMan.speed,
-            y: 0
-        },
+        x: +bomberMan.speed,
+        y: 0
+    },
         {
             x: 0,
             y: +bomberMan.speed
@@ -97,7 +97,7 @@ function createGame(selector) {
      3 => up
      */
 
-    document.body.addEventListener("keydown", function(ev) {
+    document.body.addEventListener("keydown", function (ev) {
         if (!keyCodeDirs.hasOwnProperty(ev.keyCode)) {
             return;
         }
@@ -106,7 +106,7 @@ function createGame(selector) {
         updateBomberManPosition(bomberMan, canvas, dirDeltas, dir);
     });
 
-    document.body.addEventListener("keydown", function(ev) {
+    document.body.addEventListener("keydown", function (ev) {
         if (ev.keyCode === 32 && bomberMan.bomb > 0) {
             bomb.src = '../Images/bomb.png';
             ctxBomb.drawImage(bomb, bomberMan.x, bomberMan.y);
@@ -120,12 +120,33 @@ function createGame(selector) {
         drawExitGate(exitGate, ctx);
         generateEnemy(bombarmanEnemy, ctx, enemy);
         updateEnemyPosition(bombarmanEnemy);
-        //Bomberman can now place a bomb on the field but it is only visible if debugging
-        //Need a function to render the bomb [Vlado]
+        if(isColide(bomberMan, enemy)){
+            //TODO Game Over
+        }
         window.requestAnimationFrame(gameLoop);
     }
 
     // void ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+
+    function isBetween(item, bound1, bound2) {
+        if ((item >= bound1 && item <= bound2) ||
+            (item <= bound1 && item >= bound2)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    function isColide(bomberMan, item) {
+        if (isBetween(item.x, bomberMan.x + bomberMan.size, bomberMan.x) &&
+            isBetween(item.y, bomberMan.y, bomberMan.y + bomberMan.size)) {
+            return true;
+        }
+
+        return false;
+
+
+    }
 
     function drawBomberMan() {
         hero.src = '../Images/bombermanTest.png';
