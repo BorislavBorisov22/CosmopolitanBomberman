@@ -2,7 +2,7 @@ function createGame(selector) {
     let canvas = document.querySelector(selector);
     let ctx = canvas.getContext('2d');
     let hero = new Image();
-    let bomb = new Image();
+    let bomb = document.getElementById('bomb-image');
     let exitGate = new Image();
     let bombarmanEnemy = new Image();
 
@@ -39,7 +39,6 @@ function createGame(selector) {
 
     (function putBricksRandomly(field) {
         for (let i = 0; i < 30; i += 1) {
-            debugger;
             let row = getRandomInt(1, 12);
             let col = getRandomInt(1, 18);
             if (row % 2 === 0 && col % 2 === 0) {
@@ -55,7 +54,7 @@ function createGame(selector) {
         y: 268,
         size: 30,
         speed: 20,
-        bomb: 1
+        bomb: 3
     };
     let enemy = {
         x: 60,
@@ -107,22 +106,13 @@ function createGame(selector) {
         updateBomberManPosition(bomberMan, canvas, dirDeltas, dir);
     });
 
-    const bombDirDeltas = [
-
-    ];
-
     document.body.addEventListener("keydown", function(ev) {
-        if (ev.keyCode === 32) {
+        if (ev.keyCode === 32 && bomberMan.bomb > 0) {
             bomb.src = '../Images/bomb.png';
-
             ctxBomb.drawImage(bomb, bomberMan.x, bomberMan.y);
-
-
             bomberMan.bomb -= 1;
         }
     });
-
-
 
     function gameLoop() {
         ctx.clearRect(0, 0, 1000, 800);
@@ -132,7 +122,7 @@ function createGame(selector) {
         updateEnemyPosition(bombarmanEnemy);
         //Bomberman can now place a bomb on the field but it is only visible if debugging
         //Need a function to render the bomb [Vlado]
-        window.requestAnimationFrame(gameLoop)
+        window.requestAnimationFrame(gameLoop);
     }
 
     // void ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
