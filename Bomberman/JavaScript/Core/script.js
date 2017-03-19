@@ -16,19 +16,21 @@ function createGame(selector) {
     const bombPixels = 60;
 
     const field = [
-        "*******************",
-        "*                 *",
-        "* * * * * * * * * *",
-        "*                 *",
-        "* * * * * * * * * *",
-        "*                 *",
-        "* * * * * * * * * *",
-        "*                 *",
-        "* * * * * * * * * *",
-        "*                 *",
-        "* * * * * * * * * *",
-        "*                 *",
-        "*******************"
+        "***************************",
+        "*                         *",
+        "* * * * * * * * * * * * * *",
+        "*                         *",
+        "* * * * * * * * * * * * * *",
+        "*                         *",
+        "* * * * * * * * * * * * * *",
+        "*                         *",
+        "* * * * * * * * * * * * * *",
+        "*                         *",
+        "* * * * * * * * * * * * * *",
+        "*                         *",
+        "* * * * * * * * * * * * * *",
+        "*                         *",
+        "***************************"
     ];
 
     function getRandomInt(min, max) {
@@ -38,9 +40,9 @@ function createGame(selector) {
     }
 
     (function putBricksRandomly(field) {
-        for (let i = 0; i < 30; i += 1) {
-            let row = getRandomInt(1, 12);
-            let col = getRandomInt(1, 18);
+        for (let i = 0; i < 50; i += 1) {
+            let row = getRandomInt(1, 14);
+            let col = getRandomInt(1, 26);
             if (row % 2 === 0 && col % 2 === 0) {
                 i -= 1;
             } else {
@@ -52,8 +54,8 @@ function createGame(selector) {
     let bomberMan = {
         x: 30,
         y: 268,
-        size: 30,
-        speed: 20,
+        size: 37,
+        speed: 37,
         bomb: 3
     };
     let enemy = {
