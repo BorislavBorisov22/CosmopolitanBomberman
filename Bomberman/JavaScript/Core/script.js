@@ -33,6 +33,7 @@ function createGame(selector) {
         return Math.floor(Math.random() * (max - min)) + min;
     }
     
+    
     function putBricksRandomly() {
         for (let i = 0; i < 30; i += 1) {
             let row = getRandomInt(1, 18);
