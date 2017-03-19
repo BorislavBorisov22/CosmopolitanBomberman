@@ -160,7 +160,7 @@ function createGame(selector) {
     function gameLoop() {
         ctx.clearRect(0, 0, 1000, 800);
         drawBomberMan();
-        drawExitGate(exitGate, bombCanvas, door);
+        drawExitGate(exitGate, ctxBomb, door);
         generateEnemy(bombarmanEnemy, ctx, enemy);
         updateEnemyPosition(bombarmanEnemy);
         if (isColide(bomberMan, enemy)) {

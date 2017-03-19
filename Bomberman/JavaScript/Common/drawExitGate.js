@@ -1,8 +1,8 @@
 
-function drawExitGate(exitGate, bombcanvas,door) {
+function drawExitGate(exitGate, ctxBomb,door) {
 
     exitGate.src = '../Images/gate.png';
 
 
-    bombcanvas.drawImage(exitGate, door.x * 37, door.y * 37);
+    ctxBomb.drawImage(exitGate, door.x * 37, door.y * 37);
 }
