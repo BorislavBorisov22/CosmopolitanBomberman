@@ -1,10 +1,8 @@
 
-function drawExitGate(exitGate, ctx) {
+function drawExitGate(exitGate, bombcanvas,door) {
 
-    let randomX;
-    let randomY;
     exitGate.src = '../Images/gate.png';
-    //Todo implement randomX and randomY;
 
-    ctx.drawImage(exitGate, 500, 500);
+
+    bombcanvas.drawImage(exitGate, door.x * 37, door.y * 37);
 }

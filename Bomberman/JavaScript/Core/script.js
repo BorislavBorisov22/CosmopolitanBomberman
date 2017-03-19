@@ -57,17 +57,20 @@ function createGame(selector) {
             // debugger;
             if (row % 2 === 0 || col % 2 === 0) {
                 i -= 1;
+                continue;
             } else {
                 matrix[row] = matrix[row].substr(0, col) + BRICK_CHAR + matrix[row].substr(col + 1);
             }
 
             if (door.isDoorPlaced === false) {
                 // debugger;
-                door.x = row, door.y = col;
-                isDoorPlaced = true;
+
+                door.x = col;
+                door.y = row;
+                door.isDoorPlaced = true;
             }
 
-            console.log(door.x, door.y);
+
         }
     })(field);
 
@@ -157,7 +160,7 @@ function createGame(selector) {
     function gameLoop() {
         ctx.clearRect(0, 0, 1000, 800);
         drawBomberMan();
-        drawExitGate(exitGate, ctx);
+        drawExitGate(exitGate, bombCanvas, door);
         generateEnemy(bombarmanEnemy, ctx, enemy);
         updateEnemyPosition(bombarmanEnemy);
         if (isColide(bomberMan, enemy)) {
