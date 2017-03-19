@@ -37,18 +37,18 @@ function createGame(selector) {
         return Math.floor(Math.random() * (max - min)) + min;
     }
 
-    function putBricksRandomly() {
+    (function putBricksRandomly(field) {
         for (let i = 0; i < 30; i += 1) {
-            let row = getRandomInt(1, 18);
-            let col = getRandomInt(1, 12);
+            debugger;
+            let row = getRandomInt(1, 12);
+            let col = getRandomInt(1, 18);
             if (row % 2 === 0 && col % 2 === 0) {
                 i -= 1;
-                continue;
             } else {
                 field[row][col] = '-';
             }
         }
-    }
+    })(field);
 
     let bomberMan = {
         x: 30,
@@ -117,9 +117,11 @@ function createGame(selector) {
 
             ctxBomb.drawImage(bomb, bomberMan.x, bomberMan.y);
 
+
             bomberMan.bomb -= 1;
         }
     });
+
 
 
     function gameLoop() {
@@ -164,10 +166,10 @@ function createGame(selector) {
                 enemy.moveLeft = false;
             }
         }
-
     }
 
     return {
-        start: gameLoop()
+        start: gameLoop(),
+        // loadMaze: putBricksRandomly(field)
     };
 }
