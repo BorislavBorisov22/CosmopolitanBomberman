@@ -105,6 +105,8 @@ function createGame(selector) {
         height: CELL_SIZE
     });
 
+    bomberman.update = function() {};
+
     let enemy = {
         x: CELL_SIZE,
         y: CELL_SIZE + 10, //centralize enemy
@@ -159,12 +161,12 @@ function createGame(selector) {
         if (!keyCodeDirs.hasOwnProperty(ev.keyCode)) {
             return;
         }
-        
+
 
         const futureDir = keyCodeDirs[ev.keyCode];
 
         const futureCoordinates = getFutureCordinates(bomberManPhysicalBody, canvas, dirDeltas, futureDir);
-        
+
         if (checkIfBombermanHitsNonWalkable(futureCoordinates, nonWalkables)) {
             return;
         }
