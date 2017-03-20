@@ -54,7 +54,7 @@ function createGame(selector) {
             let row = getRandomInt(1, 14);
             let col = getRandomInt(1, 26);
             // check if random brick is in start position of bomberman
-            if (row === 3 && col === 1) {
+            if ((row === 3 && col === 1) || (row === 4 && col === 1) || (row === 3 && col === 2) || (row === 2 && col === 1)) {
                 i -= 1;
                 continue;
             }
