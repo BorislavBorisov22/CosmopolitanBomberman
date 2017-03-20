@@ -14,28 +14,41 @@
 </head>
 
 <body>
-    <h1>The BomberMan Game</h1>
-    <div id="game-container">
-        <canvas id="bomb-canvas" width="999" height="555"></canvas>
-        <canvas id="game-canvas" width="999" height="555"></canvas>
-    </div>
-    <div id="player">
-        <img src="../Images/bombermanTest.png" alt="" id="bombermanImg">
-    </div>
-    <img id="bomb-image" src="../Images/bomb.png" alt="bomb" style="display: none;">
-    <img id="wall-image" src="../Images/wall.png" alt="wall" style="display: none;">
-    <img id="brick-image" src="../Images/brick.png" alt="brick" style="display: none;">
-    <img src="../Images/right.png" id="right" style="display: none;">
-    <img src="../Images/left.png" id="left" style="display: none;">
-    <img src="../Images/up.png" id="up" style="display: none;">
-    <img src="../Images/down.png" id="down" style="display: none;">
-    <script src="../JavaScript/Core/create-bomberman.js"></script>
-    <script>
-        window.addEventListener('load', function() {
-            let game = createGame("#game-canvas");
-            game.start;
-        });
-    </script>
+<h1>The BomberMan Game</h1>
+<p id="player-name"></p>
+<div id="name-container">
+    <p>Please enter your name</p>
+    <input type="text" name="myName" id="myName"  size="40">
+    <input type="button" value="Start Game" onclick="getName()">
+</div>
+<div id="game-container">
+    <canvas id="bomb-canvas" width="999" height="555"></canvas>
+    <canvas id="game-canvas" width="999" height="555"></canvas>
+</div>
+<div id="player">
+    <img src="../Images/bombermanTest.png" alt="" id="bombermanImg">
+</div>
+<img id="bomb-image" src="../Images/bomb.png" alt="bomb" style="display: none;">
+<img id="wall-image" src="../Images/wall.png" alt="wall" style="display: none;">
+<img id="brick-image" src="../Images/brick.png" alt="brick" style="display: none;">
+<img src="../Images/right.png" id="right" style="display: none;">
+<img src="../Images/left.png" id="left" style="display: none;">
+<img src="../Images/up.png" id="up" style="display: none;">
+<img src="../Images/down.png" id="down" style="display: none;">
+<script src="../JavaScript/Core/create-bomberman.js"></script>
+<script>
+    window.addEventListener('load', function() {
+        let game = createGame("#game-canvas");
+        game.start;
+    });
+
+    function getName() {
+        document.getElementById("game-container").style.display = "block";
+        var x = document.getElementById("myName").value;
+        document.getElementById("player-name").innerHTML = "Hello," + x;
+        document.getElementById("name-container").style.display = "none";
+    }
+</script>
 </body>
 
 </html>
