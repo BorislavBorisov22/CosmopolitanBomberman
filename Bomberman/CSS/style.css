@@ -1,13 +1,23 @@
-h1 {
+h1, #name-container, #player-name {
     color: black;
     position: relative;
     /* or absolute */
     text-align: center;
 }
 
+#name-container, #player-name {
+    font-size: 25px;
+    color: blue;
+    font-weight: bold;
+}
+
+input {
+    height: 25px;
+}
+
 canvas {
-	width: 100%;
-	position: absolute;
+    width: 100%;
+    position: absolute;
 }
 
 #bomb-canvas {
@@ -24,7 +34,7 @@ body {
 
 #game-container {
     position: relative;
-
+    display: none;
 }
 
 #test {
@@ -36,9 +46,9 @@ body {
     display: none;
 }
 
-@media screen and (min-width: 1200px) { 
-	#game-container {
-		width: 65%;
-		margin: auto;
-	}
+@media screen and (min-width: 1200px) {
+    #game-container {
+        width: 65%;
+        margin: auto;
+    }
 }
