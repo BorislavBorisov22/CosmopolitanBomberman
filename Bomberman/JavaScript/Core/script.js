@@ -9,7 +9,7 @@ function createGame(selector) {
     let bomb = document.getElementById('bomb-image');
     let exitGate = new Image();
     let bombarmanEnemy = new Image();
-    let door = { x: 1, y: 1, isDoorPlaced: false };
+    let door = {x: 1, y: 1, isDoorPlaced: false};
 
     let wall = document.getElementById('wall-image');
     let brick = document.getElementById('brick-image');
@@ -48,19 +48,24 @@ function createGame(selector) {
         return Math.floor(Math.random() * (max - min)) + min;
     }
 
+
     (function putBricksRandomly(matrix) {
-        for (let i = 0; i < 50; i += 1) {
-            // debugger;
+        for (let i = 0; i < 70; i += 1) {
             let row = getRandomInt(1, 14);
             let col = getRandomInt(1, 26);
-            // debugger;
-            if (row % 2 === 0 || col % 2 === 0) {
+            // check if random brick is in start position of bomberman
+            if (row === 3 && col === 1) {
+                i -= 1;
+                continue;
+            }
+            if ((row % 2 === 0 && col % 2 === 0)) {
                 i -= 1;
                 continue;
             } else {
                 matrix[row] = matrix[row].substr(0, col) + BRICK_CHAR + matrix[row].substr(col + 1);
             }
 
+            // place door
             if (door.isDoorPlaced === false) {
                 door.x = col;
                 door.y = row;
@@ -71,6 +76,7 @@ function createGame(selector) {
 
     let nonWalkables = [];
 
+    // render field
     for (let i = 0; i < field.length; i++) {
         for (let j = 0; j < field[0].length; j++) {
             let symbol = field[i][j];
@@ -87,7 +93,7 @@ function createGame(selector) {
 
     let bomberManPhysicalBody = {
         x: CELL_SIZE,
-        y: CELL_SIZE * 3,
+        y: CELL_SIZE, //TODO *3;
         size: CELL_SIZE,
         speed: CELL_SIZE / 4,
         bomb: 3
@@ -96,19 +102,18 @@ function createGame(selector) {
     const bomberman = createBomberman({
         context: ctx,
         width: CELL_SIZE,
-        height: CELL_SIZE,
+        height: CELL_SIZE
     });
 
     let enemy = {
         x: CELL_SIZE,
-        y: CELL_SIZE + 5, //centralize enemy
+        y: CELL_SIZE + 10, //centralize enemy
         size: 15,
         speed: 3,
         moveRight: true,
         moveLeft: false
     };
-
-    let dir = 0;
+    
     let keyCodeDirs = {
         37: 2,
         38: 3,
@@ -139,80 +144,77 @@ function createGame(selector) {
      2 => left
      3 => up
      */
-    let lastCoordinates = { x: bomberManPhysicalBody.x, y: bomberManPhysicalBody.y };
-    document.body.addEventListener("keydown", function(ev) {
+    function checkIfBombermanHitsNonWalkable(bomberman, nonWalkables) {
+        for (let i = 0; i < nonWalkables.length; i += 1) {
+            if (isCollide(bomberman, nonWalkables[i])) {
+                return true;
+            }
+        }
+        return false
+    }
+
+    let lastCoordinates = {x: bomberManPhysicalBody.x, y: bomberManPhysicalBody.y};
+    let dir = 0;
+    document.body.addEventListener("keydown", function (ev) {
         if (!keyCodeDirs.hasOwnProperty(ev.keyCode)) {
             return;
         }
-
-        bomberman.update = bomberman.lastUpdate;
-
+        
         dir = keyCodeDirs[ev.keyCode];
-        updateBomberManPosition(bomberManPhysicalBody, canvas, dirDeltas, dir);
+        
+        //TODO finish this check!
+        if (!(checkIfBombermanHitsNonWalkable(bomberManPhysicalBody, nonWalkables))) {
+            updateBomberManPosition(bomberManPhysicalBody, canvas, dirDeltas, dir);
+        }
+        
         bomberman.updateSprite(dir);
     });
 
     // placing bombs
-    document.body.addEventListener("keydown", function(ev) {
+    document.body.addEventListener("keydown", function (ev) {
         if (ev.keyCode === 32 && bomberManPhysicalBody.bomb > 0) {
             bomb.src = '../Images/bomb.png';
             ctxBomb.drawImage(bomb, bomberManPhysicalBody.x, bomberManPhysicalBody.y);
             bomberManPhysicalBody.bomb -= 1;
 
-            setTimeout(function() {
+            setTimeout(function () {
                 //TODO Bomb should explode
                 alert('boom');
                 ctxBomb.clearRect(0, 0, bomberManPhysicalBody.x, bomberManPhysicalBody.y);
             }, 3000);
         }
     });
-
-    document.body.addEventListener('keyup', function(ev) {
-        const keyCodes = [37, 38, 39, 40];
-
-        if (keyCodes.indexOf(ev.keyCode) >= 0) {
-            bomberman.update = function() {};
-        }
-    });
+    
 
     function gameLoop() {
         ctx.clearRect(0, 0, 1000, 800);
-        //drawBomberMan();
-        bomberman.render({ x: bomberManPhysicalBody.x, y: bomberManPhysicalBody.y }).update();
+        bomberman.render({x: bomberManPhysicalBody.x, y: bomberManPhysicalBody.y}).update();
         //TODO function to be invoked when the block is BLOWN!
         //drawExitGate(exitGate, ctx, door);
         generateEnemy(bombarmanEnemy, ctx, enemy);
         updateEnemyPosition(bombarmanEnemy);
-        if (isColide(bomberManPhysicalBody, enemy)) {
-            //TODO Game Over
-        }
+        //if (isCollide(bomberManPhysicalBody, enemy)) {
+        //    //TODO Game Over
+        //}
+
         window.requestAnimationFrame(gameLoop);
     }
 
     // void ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
 
-    function isBetween(item, bound1, bound2) {
-        if ((item >= bound1 && item <= bound2) ||
-            (item <= bound1 && item >= bound2)) {
-            return true;
+
+    function isCollide(bomberMan, item) {
+        if (bomberMan.x < item.x + CELL_SIZE &&
+            bomberMan.x + CELL_SIZE > item.x &&
+            bomberMan.y < item.y + CELL_SIZE &&
+            CELL_SIZE + bomberMan.y > item.y) {
+            
+            return true
         }
 
         return false;
     }
 
-    function isColide(bomberMan, item) {
-        if (isBetween(item.x, bomberMan.x + bomberMan.size, bomberMan.x) &&
-            isBetween(item.y, bomberMan.y, bomberMan.y + bomberMan.size)) {
-            return true;
-        }
-
-        return false;
-    }
-
-    function drawBomberMan() {
-        hero.src = '../Images/bombermanTest.png';
-        ctx.drawImage(hero, 0, 18, hero.width, hero.height - 18, bomberMan.x, bomberMan.y, hero.width, hero.height - 18);
-    }
 
     function updateEnemyPosition(bombarmanEnemy) {
         bombarmanEnemy.src = '../Images/enemy.png';
@@ -241,7 +243,6 @@ function createGame(selector) {
     }
 
     return {
-        start: gameLoop(),
-        // loadMaze: putBricksRandomly(field)
+        start: gameLoop()
     };
 }
