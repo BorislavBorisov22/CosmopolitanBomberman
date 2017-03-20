@@ -1,18 +1,13 @@
 h1 {
     color: black;
-    width: 275px;
     position: relative;
     /* or absolute */
     text-align: center;
-    top: 50%;
-    left: 40%;
 }
 
 canvas {
-    border: 1px solid black;
-    position: absolute;
-    Margin: 0 auto;
-    Vertical-align: middle;
+	width: 100%;
+	position: absolute;
 }
 
 #bomb-canvas {
@@ -29,7 +24,7 @@ body {
 
 #game-container {
     position: relative;
-    padding-left: 400px;
+
 }
 
 #test {
@@ -39,4 +34,11 @@ body {
 
 #bombermanImg {
     display: none;
+}
+
+@media screen and (min-width: 1200px) { 
+	#game-container {
+		width: 65%;
+		margin: auto;
+	}
 }
