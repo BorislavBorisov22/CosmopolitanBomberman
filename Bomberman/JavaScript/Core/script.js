@@ -154,7 +154,6 @@ function createGame(selector) {
         return false
     }
 
-    let lastCoordinates = { x: bomberManPhysicalBody.x, y: bomberManPhysicalBody.y };
     let dir = 0;
     document.body.addEventListener("keydown", function(ev) {
         if (!keyCodeDirs.hasOwnProperty(ev.keyCode)) {
@@ -172,10 +171,18 @@ function createGame(selector) {
             return;
         }
 
+        bomberman.update = bomberman.lastUpdate;
+
         dir = keyCodeDirs[ev.keyCode];
         updateBomberManPosition(bomberManPhysicalBody, canvas, dirDeltas, dir);
 
         bomberman.updateSprite(dir);
+    });
+
+    document.body.addEventListener('keyup', function(ev) {
+        if (keyCodeDirs.hasOwnProperty(ev.keyCode)) {
+            bomberman.update = function() {};
+        }
     });
 
     // placing bombs
