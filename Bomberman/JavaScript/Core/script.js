@@ -93,7 +93,7 @@ function createGame(selector) {
 
     let bomberManPhysicalBody = {
         x: CELL_SIZE,
-        y: CELL_SIZE, //TODO *3;
+        y: CELL_SIZE * 3,
         size: CELL_SIZE,
         speed: CELL_SIZE / 4,
         bomb: 3
@@ -159,14 +159,12 @@ function createGame(selector) {
         if (!keyCodeDirs.hasOwnProperty(ev.keyCode)) {
             return;
         }
-
-        // dir = keyCodeDirs[ev.keyCode];
+        
 
         const futureDir = keyCodeDirs[ev.keyCode];
 
         const futureCoordinates = getFutureCordinates(bomberManPhysicalBody, canvas, dirDeltas, futureDir);
-
-        //TODO finish this check!
+        
         if (checkIfBombermanHitsNonWalkable(futureCoordinates, nonWalkables)) {
             return;
         }
