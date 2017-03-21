@@ -5,7 +5,6 @@ function createGame(selector) {
 
     let canvas = document.querySelector(selector);
     let ctx = canvas.getContext('2d');
-    let hero = new Image();
     let bomb = document.getElementById('bomb-image');
     let exitGate = new Image();
     let bombarmanEnemy = new Image();
@@ -20,7 +19,7 @@ function createGame(selector) {
     bombCanvas.style.border = '1px solid blue';
 
     const enemyDefaultSpeed = 1;
-    const wallOffset = 20;
+
     const bombPixels = 60;
 
     const field = [
@@ -54,7 +53,8 @@ function createGame(selector) {
             let row = getRandomInt(1, 14);
             let col = getRandomInt(1, 26);
             // check if random brick is in start position of bomberman
-            if ((row === 3 && col === 1) || (row === 4 && col === 1) || (row === 3 && col === 2) || (row === 2 && col === 1)) {
+            if ((row === 3 && col === 1) || (row === 4 && col === 1) || (row === 3 && col === 2) || 
+                (row === 2 && col === 1) || (row === 1 && col === 1) || (row === 1 && col === 2)) {
                 i -= 1;
                 continue;
             }
@@ -109,7 +109,7 @@ function createGame(selector) {
 
     let enemy = {
         x: CELL_SIZE,
-        y: CELL_SIZE + 10, //centralize enemy
+        y: CELL_SIZE, //TODO : centralize enemy
         size: 15,
         speed: 3,
         moveRight: true,
@@ -234,7 +234,7 @@ function createGame(selector) {
     function updateEnemyPosition(bombarmanEnemy) {
         bombarmanEnemy.src = '../Images/enemy.png';
 
-        checkForOutOfBoundaries(enemy);
+        checkForOutOfBoundaries(enemy, nonWalkables);
 
         if (enemy.moveRight === true && enemy.moveLeft === false) {
             enemy.x += enemyDefaultSpeed;
@@ -245,12 +245,12 @@ function createGame(selector) {
 
         ctx.drawImage(bombarmanEnemy, enemy.x, enemy.y);
 
-        function checkForOutOfBoundaries(enemy) {
-            if (enemy.x > canvas.width - wallOffset) {
+        function checkForOutOfBoundaries(enemy, nonWalkables) {
+            if (checkIfBombermanHitsNonWalkable(enemy, nonWalkables) && enemy.moveRight) {
                 enemy.moveRight = false;
                 enemy.moveLeft = true;
             }
-            if (enemy.x < 0) {
+            else if (checkIfBombermanHitsNonWalkable(enemy, nonWalkables) && enemy.moveLeft) {
                 enemy.moveRight = true;
                 enemy.moveLeft = false;
             }
