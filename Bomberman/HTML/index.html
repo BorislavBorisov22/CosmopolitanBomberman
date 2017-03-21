@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../CSS/style.css">
     <script src="../JavaScript/Core/script.js"></script>
     <script src="../JavaScript/Common/movement.js"></script>
-    <script src="../JavaScript/Enemy/generateEnemy.js"></script>
+    <script src="../JavaScript/Enemy/generateEnemies.js"></script>
     <script src="../JavaScript/Common/drawExitGate.js"></script>
     <!--<script src="../JavaScript/Jquery/jquery-1.11.3.js"></script>-->
     <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
@@ -36,8 +36,10 @@
     <img src="../Images/up.png" id="up" style="display: none;">
     <img src="../Images/down.png" id="down" style="display: none;">
     <img src="../Images/bomb-sprite.png" id="bomb-sprite" style="display: none;">
+    <img src="../Images/enemy-sprite.png" id="enemy-sprite" style="display: none;">
     <script src="../JavaScript/Core/create-bomberman.js"></script>
     <script src="../JavaScript/Core/create-bomb.js"></script>
+    <script src="../JavaScript/Core/create-enemy.js"></script>
     <script>
         window.addEventListener('load', function() {
             let game = createGame("#game-canvas");
