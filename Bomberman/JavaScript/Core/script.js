@@ -153,7 +153,7 @@ function createGame(selector) {
             }
         }
 
-        return false
+        return false;
     }
 
     let dir = 0;
@@ -170,6 +170,8 @@ function createGame(selector) {
         if (checkIfBombermanHitsNonWalkable(futureCoordinates, nonWalkables)) {
             return;
         }
+
+
 
         bomberman.update = bomberman.lastUpdate;
 
@@ -208,9 +210,11 @@ function createGame(selector) {
         //drawExitGate(exitGate, ctx, door);
         generateEnemy(bombarmanEnemy, ctx, enemy);
         updateEnemyPosition(bombarmanEnemy);
-        //if (isCollide(bomberManPhysicalBody, enemy)) {
-        //    //TODO Game Over
-        //}
+        if (isCollide(bomberManPhysicalBody, enemy)) {
+            alert("Game");
+            return;
+            //TODO to be added a picture how bomberman DIE
+        }
 
         window.requestAnimationFrame(gameLoop);
     }
