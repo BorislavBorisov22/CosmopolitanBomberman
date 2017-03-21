@@ -2,9 +2,8 @@ const bombImg = document.getElementById('bomb-sprite');
 
 function createBomb(options) {
 
-    function render(drawCoordinates, clearCoordinates) {
+    function render() {
         const self = this;
-
         // self.context.clearRect(clearCoordinates.x, clearCoordinates.y, self.width, self.height);
         // void ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight); 
 
@@ -14,8 +13,8 @@ function createBomb(options) {
             0,
             self.spriteSheet.width / self.totalSprites,
             self.spriteSheet.height,
-            drawCoordinates.x,
-            drawCoordinates.y,
+            self.x,
+            self.y,
             self.width,
             self.height
         );

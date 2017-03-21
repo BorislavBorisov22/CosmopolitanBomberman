@@ -211,11 +211,14 @@ function createGame(selector) {
 
             bombToPlace.render();
 
-            setTimeout(function() {
+            setInterval(function() {
+                bombToPlace.update().render();
+            }, 300);
 
-                alert('boom');
+            setTimeout(function() {
                 //TODO BOMB should be reduced cause current the bomb jpeg is bigger then brick
                 ctxBomb.clearRect(bombCordinates.x, bombCordinates.y, bombPixels, bombPixels);
+                bombToPlace.render = function() {};
             }, 3000);
         }
     });
@@ -228,6 +231,7 @@ function createGame(selector) {
         //drawExitGate(exitGate, ctx, door);
         generateEnemy(bombarmanEnemy, ctx, enemy);
         updateEnemyPosition(bombarmanEnemy);
+
         if (isCollide(bomberManPhysicalBody, enemy)) {
             alert("Game");
             return;
