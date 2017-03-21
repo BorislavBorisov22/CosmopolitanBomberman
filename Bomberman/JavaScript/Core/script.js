@@ -3,7 +3,7 @@ function createGame(selector) {
     const WALL_CHAR = '*';
     const BRICK_CHAR = '-';
     const bombPixels = 37;
-    const NUMBER_OF_ENEMIES = 6;
+    const NUMBER_OF_ENEMIES = 5;
 
 
     let canvas = document.querySelector(selector);
@@ -115,7 +115,7 @@ function createGame(selector) {
 
     bomberman.update = function() {};
 
-    const enemies = generateEnemies(ctx, NUMBER_OF_ENEMIES, CELL_SIZE, CELL_SIZE);
+    const enemies = generateEnemies(ctx, NUMBER_OF_ENEMIES, CELL_SIZE, CELL_SIZE, field);
 
     const firstEnemy = createEnemy({
         context: ctx,
@@ -264,7 +264,7 @@ function createGame(selector) {
         });
 
         if (isGameOver) {
-            alert('game over');
+            //alert('game over');
             return;
         }
 
