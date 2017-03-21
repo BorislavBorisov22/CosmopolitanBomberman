@@ -16,6 +16,8 @@ function createGame(selector) {
         y: 0
     };
 
+    const bombs = [];
+
     let wall = document.getElementById('wall-image');
     let brick = document.getElementById('brick-image');
     const bombCanvas = document.getElementById('bomb-canvas'),
@@ -25,7 +27,6 @@ function createGame(selector) {
     bombCanvas.style.border = '1px solid blue';
 
     const enemyDefaultSpeed = 1;
-
 
     const field = [
         "***************************",
@@ -193,8 +194,6 @@ function createGame(selector) {
     // placing bombs
     document.body.addEventListener("keydown", function(ev) {
         if (ev.keyCode === 32 && bomberManPhysicalBody.bomb > 0) {
-            bomb.src = '../Images/bomb.png';
-            //ctxBomb.drawImage(bomb, bomberManPhysicalBody.x, bomberManPhysicalBody.y);
             bomberManPhysicalBody.bomb -= 1;
             bombCordinates.x = bomberManPhysicalBody.x;
             bombCordinates.y = bomberManPhysicalBody.y;
@@ -207,22 +206,21 @@ function createGame(selector) {
                 y: bomberManPhysicalBody.y
             });
 
-            console.log(bombToPlace);
-
-            bombToPlace.render();
+            bombs.push(bombToPlace);
 
             setInterval(function() {
-                bombToPlace.update().render();
-            }, 300);
+                bombs.forEach(b => b.update().render());
+            }, 100);
 
             setTimeout(function() {
                 //TODO BOMB should be reduced cause current the bomb jpeg is bigger then brick
-                ctxBomb.clearRect(bombCordinates.x, bombCordinates.y, bombPixels, bombPixels);
-                bombToPlace.render = function() {};
+                const firstBomb = bombs.shift();
+                ctxBomb.clearRect(firstBomb.x, firstBomb.y, bombPixels, bombPixels);
+
+                bomberManPhysicalBody.bomb += 1;
             }, 3000);
         }
     });
-
 
     function gameLoop() {
         ctx.clearRect(0, 0, 1000, 800);
