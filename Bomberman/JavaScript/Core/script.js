@@ -207,6 +207,8 @@ function createGame(selector) {
                 y: bomberManPhysicalBody.y
             });
 
+            console.log(bombToPlace);
+
             bombToPlace.render();
 
             setTimeout(function() {
