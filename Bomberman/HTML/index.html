@@ -16,11 +16,11 @@
 <body>
 <h1>The BomberMan Game</h1>
 <p id="player-name"></p>
-<div id="name-container">
-    <p>Please enter your name</p>
-    <input type="text" name="myName" id="myName"  size="40">
-    <input type="button" value="Start Game" onclick="getName()">
-</div>
+<!--<div id="name-container">-->
+    <!--<p>Please enter your name</p>-->
+    <!--<input type="text" name="myName" id="myName"  size="40">-->
+    <!--<input type="button" value="Start Game" onclick="getName()">-->
+<!--</div>-->
 <div id="game-container">
     <canvas id="bomb-canvas" width="999" height="555"></canvas>
     <canvas id="game-canvas" width="999" height="555"></canvas>
@@ -42,12 +42,12 @@
         game.start;
     });
 
-    function getName() {
-        document.getElementById("game-container").style.display = "block";
-        var x = document.getElementById("myName").value;
-        document.getElementById("player-name").innerHTML = "Hello," + x;
-        document.getElementById("name-container").style.display = "none";
-    }
+//    function getName() {
+//        document.getElementById("game-container").style.display = "block";
+//        var x = document.getElementById("myName").value;
+//        document.getElementById("player-name").innerHTML = "Hello," + x;
+//        document.getElementById("name-container").style.display = "none";
+
 </script>
 </body>
 

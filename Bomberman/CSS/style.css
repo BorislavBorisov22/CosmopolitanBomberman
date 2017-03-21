@@ -34,7 +34,7 @@ body {
 
 #game-container {
     position: relative;
-    display: none;
+    /*display: none;*/
 }
 
 #test {

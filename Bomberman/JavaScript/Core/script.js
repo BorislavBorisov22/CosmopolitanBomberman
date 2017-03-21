@@ -2,6 +2,8 @@ function createGame(selector) {
     const CELL_SIZE = 37;
     const WALL_CHAR = '*';
     const BRICK_CHAR = '-';
+    const bombPixels = 37;
+
 
     let canvas = document.querySelector(selector);
     let ctx = canvas.getContext('2d');
@@ -9,6 +11,10 @@ function createGame(selector) {
     let exitGate = new Image();
     let bombarmanEnemy = new Image();
     let door = { x: 1, y: 1, isDoorPlaced: false };
+    let bombCordinates = {
+        x:0,
+        y:0
+    };
 
     let wall = document.getElementById('wall-image');
     let brick = document.getElementById('brick-image');
@@ -20,7 +26,6 @@ function createGame(selector) {
 
     const enemyDefaultSpeed = 1;
 
-    const bombPixels = 60;
 
     const field = [
         "***************************",
@@ -193,11 +198,14 @@ function createGame(selector) {
             bomb.src = '../Images/bomb.png';
             ctxBomb.drawImage(bomb, bomberManPhysicalBody.x, bomberManPhysicalBody.y);
             bomberManPhysicalBody.bomb -= 1;
+            bombCordinates.x = bomberManPhysicalBody.x;
+            bombCordinates.y = bomberManPhysicalBody.y;
 
             setTimeout(function() {
-                //TODO Bomb should explode
+
                 alert('boom');
-                ctxBomb.clearRect(0, 0, bomberManPhysicalBody.x, bomberManPhysicalBody.y);
+                //TODO BOMB should be reduced cause current the bomb jpeg is bigger then brick
+                ctxBomb.clearRect(bombCordinates.x, bombCordinates.y, bombPixels, bombPixels);
             }, 3000);
         }
     });
