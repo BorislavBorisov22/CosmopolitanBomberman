@@ -25,7 +25,7 @@ function createGame(selector) {
         ctxBomb = bombCanvas.getContext('2d');
 
     generateStones(field);
-    drawGameField(field, ctxBomb);
+    const nonWalkables = drawGameField(field, ctxBomb);
 
     const exitGate = new Image(),
         bombarmanEnemy = new Image();
@@ -35,7 +35,6 @@ function createGame(selector) {
 
     const bombermanBody = new PhysicalBody(CELL_SIZE, CELL_SIZE * 3, 0, CELL_SIZE, CELL_SIZE);
 
-
     const bombermanSprite = new BombermanSprite({
         context: ctx,
         spriteSheet: rightImg,
@@ -44,20 +43,27 @@ function createGame(selector) {
         height: CELL_SIZE,
         totalSprites: BOMBERMAN_TOTAL_SPRITESHEETS,
     });
-    const enemies = generateEnemies(ctx, NUMBER_OF_ENEMIES, CELL_SIZE, CELL_SIZE, field);
 
-    const firstEnemy = createEnemy({
+    const bomberman = getGameObject(bombermanSprite, bombermanBody);
+    bomberman.bombsCount = INITIAL_BOMBS_COUNT;
+
+    const enemies = []; //generateEnemies(ctx, NUMBER_OF_ENEMIES, CELL_SIZE, CELL_SIZE, field);
+
+    const firstEnemyBody = new PhysicalBody(CELL_SIZE, CELL_SIZE, 0, CELL_SIZE, CELL_SIZE);
+    const firstEnemySprite = new Sprite({
         context: ctx,
+        spriteSheet: enemyImg,
+        totalTicksPerFrame: 5,
         width: CELL_SIZE,
         height: CELL_SIZE,
-        totalSprites: 3,
-        x: CELL_SIZE,
-        y: CELL_SIZE,
+        totalSprites: 4,
     });
+
+    const firstEnemy = getGameObject(firstEnemySprite, firstEnemyBody);
 
     enemies.push(firstEnemy);
 
-    let keyCodeDirs = {
+    const keyCodeDirs = {
         37: 2,
         38: 3,
         39: 0,
@@ -65,7 +71,6 @@ function createGame(selector) {
     };
 
     const speed = CELL_SIZE / 4;
-
     const dirDeltas = [{
             x: +speed,
             y: 0
@@ -90,9 +95,9 @@ function createGame(selector) {
      2 => left
      3 => up
      */
-
     function checkIfBombermanHitsNonWalkable(bomberman, nonWalkables) {
         for (let i = 0; i < nonWalkables.length; i += 1) {
+
             if (collidesWith(bomberman, nonWalkables[i])) {
                 return true;
             }
@@ -101,22 +106,23 @@ function createGame(selector) {
         return false;
     }
 
+    // moving bomberman logic
     document.body.addEventListener("keydown", function(ev) {
         if (!keyCodeDirs.hasOwnProperty(ev.keyCode)) {
             return;
         }
 
-        const futureCoordinates = bombermanBody.getFutureCoordinates(dirDeltas, ev.keyCode, keyCodeDirs);
+        const futureCoordinates = bomberman.body.getFutureCoordinates(dirDeltas, ev.keyCode, keyCodeDirs);
 
         if (checkIfBombermanHitsNonWalkable(futureCoordinates, nonWalkables)) {
             return;
         }
 
-        bombermanBody.updateDirection(ev.keyCode, keyCodeDirs);
-        bombermanBody.updatePostion(dirDeltas);
+        bomberman.body.updateDirection(ev.keyCode, keyCodeDirs);
+        bomberman.body.updatePostion(dirDeltas);
 
         //bomberman.update = bomberman.lastUpdate;
-        bombermanSprite.updateSpritesheet(bombermanBody.direction);
+        bomberman.sprite.updateSpritesheet(bombermanBody.direction);
     });
 
     document.body.addEventListener('keyup', function(ev) {
@@ -127,14 +133,14 @@ function createGame(selector) {
 
     let bombsCount = INITIAL_BOMBS_COUNT;
 
-    // placing bombs
+    // placing bombs event
     document.body.addEventListener("keydown", function(ev) {
 
         if (ev.keyCode !== 32 || bombsCount <= 0) {
             return;
         }
 
-        bombsCount -= 1;
+        bomberman.bombsCount -= 1;
 
         // creating new bomb sprite and coordinates body and adding to the field bombs
         const bombToPlaceSprite = new Sprite({
@@ -160,7 +166,7 @@ function createGame(selector) {
             const firstBomb = bombs.shift();
             ctxBomb.clearRect(firstBomb.body.x, firstBomb.body.y, firstBomb.body.width, firstBomb.body.height);
 
-            bombsCount += 1;
+            bomberman.bombsCount += 1;
         }, 3000);
     });
 
@@ -168,22 +174,23 @@ function createGame(selector) {
 
     function gameLoop() {
         ctx.clearRect(0, 0, 1000, 800);
-        bombermanSprite.render({ x: bombermanBody.x, y: bombermanBody.y }).update();
+        bomberman.sprite.render({ x: bombermanBody.x, y: bombermanBody.y }).update();
         //TODO function to be invoked when the block is BLOWN!
         //drawExitGate(exitGate, ctx, door);
         // generateEnemy(bombarmanEnemy, ctx, enemy);
         // generateEnemy(bombarmanEnemy, ctx, secondEnemy);
 
-        enemies.forEach(x => {
-            x.update().render();
+        enemies.forEach(enemy => {
+            enemy.sprite.render({ x: enemy.body.x, y: enemy.body.y }).update();
 
-            if (collidesWith(bombermanBody, x)) {
+            if (collidesWith(bomberman.body, enemy.body)) {
                 isGameOver = true;
                 return;
                 //TODO to be added a picture how bomberman DIE
             }
 
-            updateEnemyPosition(x);
+            updateEnemyPosition(enemy);
+            //enemy.body.updatePostion(dirDeltas);
         });
 
         if (isGameOver) {
@@ -197,16 +204,11 @@ function createGame(selector) {
     // void ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
 
 
-    function collidesWith(bomberMan, item) {
-        if (bomberMan.x < item.x + CELL_SIZE &&
-            bomberMan.x + CELL_SIZE > item.x &&
-            bomberMan.y < item.y + CELL_SIZE &&
-            CELL_SIZE + bomberMan.y > item.y) {
+    function collidesWith(firstBody, secondBody) {
+        const isColliding = (firstBody.x < secondBody.x + CELL_SIZE && firstBody.x + CELL_SIZE > secondBody.x) &&
+            (firstBody.y < secondBody.y + CELL_SIZE && firstBody.y + CELL_SIZE > secondBody.y);
 
-            return true;
-        }
-
-        return false;
+        return isColliding;
     }
 
     function getGameObject(spriteObj, physicalBodyObj) {
@@ -217,34 +219,28 @@ function createGame(selector) {
 
     function updateEnemyPosition(enemy) {
 
-        checkForOutOfBoundaries(enemy, nonWalkables);
+        const enemyDirDeltas = [{
+            x: 1,
+            y: 0
+        }, {
+            x: 0,
+            y: 1
+        }, {
+            x: -1,
+            y: 0
+        }, {
+            x: 0,
+            y: -1
+        }];
 
-        if (enemy.moveRight === true && enemy.moveLeft === false && enemy.moveDown === false && enemy.moveUp === false) {
-            enemy.x += enemyDefaultSpeed;
-        } else if (enemy.moveRight === false && enemy.moveLeft === true && enemy.moveDown === false && enemy.moveUp === false) {
-            enemy.x -= enemyDefaultSpeed;
-        } else if (enemy.moveRight === false && enemy.moveLeft === false && enemy.moveDown === true && enemy.moveUp === false) {
-            enemy.y += enemyDefaultSpeed;
-        } else if (enemy.moveRight === false && enemy.moveLeft === false && enemy.moveDown === false && enemy.moveUp === true) {
-            enemy.y -= enemyDefaultSpeed;
-        }
+        enemy.body.updatePostion(enemyDirDeltas);
 
-        function checkForOutOfBoundaries(enemy, nonWalkables) {
-            if (checkIfBombermanHitsNonWalkable(enemy, nonWalkables) && enemy.moveRight) {
-                enemy.moveRight = false;
-                enemy.moveDown = true;
-            } else if (checkIfBombermanHitsNonWalkable(enemy, nonWalkables) && enemy.moveDown) {
-                enemy.moveDown = false;
-                enemy.moveLeft = true;
-            } else if (checkIfBombermanHitsNonWalkable(enemy, nonWalkables) && enemy.moveLeft) {
-                enemy.moveLeft = false;
-                enemy.moveUp = true;
-            } else if (checkIfBombermanHitsNonWalkable(enemy, nonWalkables) && enemy.moveUp) {
-                enemy.moveUp = false;
-                enemy.moveRight = true;
-            }
+        const diffs = [-1, 1];
+        if (checkIfBombermanHitsNonWalkable(enemy.body, nonWalkables)) {
+            enemy.body.direction = enemy.body.direction + 1 >= dirDeltas.length ? 0 : enemy.body.direction + 1;
         }
     }
+
     return {
         start: gameLoop()
     };

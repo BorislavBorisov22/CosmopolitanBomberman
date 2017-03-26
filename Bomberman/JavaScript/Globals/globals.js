@@ -20,4 +20,5 @@ const wallImage = document.getElementById('wall-image'),
     rightImg = document.getElementById('right'),
     upImg = document.getElementById('up'),
     downImg = document.getElementById('down'),
-    bombImg = document.getElementById('bomb-sprite');
+    bombImg = document.getElementById('bomb-sprite'),
+    enemyImg = document.getElementById('enemy-sprite');

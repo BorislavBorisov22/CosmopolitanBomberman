@@ -23,8 +23,7 @@ function generateStones(matrix) {
             (row === 2 && col === 1) || (row === 1 && col === 1) || (row === 1 && col === 2)) {
             i -= 1;
             continue;
-        }
-        if ((row % 2 === 0 && col % 2 === 0)) {
+        } else if ((row % 2 === 0 && col % 2 === 0)) {
             i -= 1;
             continue;
         } else {
@@ -40,9 +39,9 @@ function generateStones(matrix) {
     }
 }
 
-const nonWalkables = [];
-
 function drawGameField(field, context) {
+
+    const nonWalkables = [];
 
     for (let i = 0; i < field.length; i++) {
         for (let j = 0; j < field[0].length; j++) {
@@ -72,4 +71,6 @@ function drawGameField(field, context) {
             nonWalkables.push({ x: CELL_SIZE * j, y: CELL_SIZE * i });
         }
     }
+
+    return nonWalkables;
 }
