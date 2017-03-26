@@ -21,86 +21,20 @@ function createGame(selector) {
     const bombermanCanvas = document.querySelector(selector),
         ctx = bombermanCanvas.getContext('2d'),
         bomb = document.getElementById('bomb-image'),
-        exitGate = new Image(),
-        bombarmanEnemy = new Image();
-
-    let door = { x: 1, y: 1, isDoorPlaced: false };
-    let bombCordinates = {
-        x: 0,
-        y: 0
-    };
-
-    const bombs = [];
-
-    const bombCanvas = document.getElementById('bomb-canvas'),
+        bombCanvas = document.getElementById('bomb-canvas'),
         ctxBomb = bombCanvas.getContext('2d');
 
+    generateStones(field);
+    drawGameField(field, ctxBomb);
+
+    const exitGate = new Image(),
+        bombarmanEnemy = new Image();
+
+    const bombs = [];
     const enemyDefaultSpeed = 1;
-
-    function getRandomInt(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min)) + min;
-    }
-
-
-    (function putBricksRandomly(matrix) {
-        for (let i = 0; i < 70; i += 1) {
-            let row = getRandomInt(1, 14);
-            let col = getRandomInt(1, 26);
-            // check if random brick is in start position of bomberman
-            if ((row === 3 && col === 1) || (row === 4 && col === 1) || (row === 3 && col === 2) ||
-                (row === 2 && col === 1) || (row === 1 && col === 1) || (row === 1 && col === 2)) {
-                i -= 1;
-                continue;
-            }
-            if ((row % 2 === 0 && col % 2 === 0)) {
-                i -= 1;
-                continue;
-            } else {
-                matrix[row] = matrix[row].substr(0, col) + BRICK_CHAR + matrix[row].substr(col + 1);
-            }
-
-            // place door
-            if (!door.isDoorPlaced) {
-                door.x = col;
-                door.y = row;
-                door.isDoorPlaced = true;
-            }
-        }
-    })(field);
-
-    let nonWalkables = [];
-
-    // render field
-    for (let i = 0; i < field.length; i++) {
-        for (let j = 0; j < field[0].length; j++) {
-            let symbol = field[i][j];
-            if (symbol === WALL_CHAR) {
-                ctxBomb.drawImage(wallImage, 0, 0, wallImage.width, wallImage.height, j * CELL_SIZE, i * CELL_SIZE, CELL_SIZE, CELL_SIZE);
-                nonWalkables.push({ x: CELL_SIZE * j, y: CELL_SIZE * i });
-            } else if (symbol === BRICK_CHAR) {
-                ctxBomb.drawImage(brickImage, 0, 0, brickImage.width, brickImage.height, j * CELL_SIZE, i * CELL_SIZE, CELL_SIZE, CELL_SIZE);
-                nonWalkables.push({ x: CELL_SIZE * j, y: CELL_SIZE * i });
-            }
-
-        }
-    }
-    // let bombermanBody = {
-    //     x: CELL_SIZE,
-    //     y: CELL_SIZE * 3,
-    //     size: CELL_SIZE,
-    //     speed: CELL_SIZE / 4,
-    //     bomb: 3
-    // };
 
     const bombermanBody = new PhysicalBody(CELL_SIZE, CELL_SIZE * 3, 0, CELL_SIZE, CELL_SIZE);
 
-    // const bomberman = createBomberman({
-    //     context: ctx,
-    //     width: CELL_SIZE,
-    //     height: CELL_SIZE
-    // });
 
     const bombermanSprite = new BombermanSprite({
         context: ctx,
@@ -120,7 +54,6 @@ function createGame(selector) {
         x: CELL_SIZE,
         y: CELL_SIZE,
     });
-
 
     enemies.push(firstEnemy);
 
