@@ -1,14 +1,21 @@
-h1, #name-container, #player-name {
+h1,
+#name-container,
+#player-name {
     color: black;
     position: relative;
     /* or absolute */
     text-align: center;
 }
 
-#name-container, #player-name {
+#name-container,
+#player-name {
     font-size: 25px;
     color: blue;
     font-weight: bold;
+}
+
+img {
+    display: none;
 }
 
 input {
@@ -21,7 +28,7 @@ canvas {
 }
 
 #bomb-canvas {
-    background-color: white;
+    background-color: green;
 }
 
 body {

@@ -7,15 +7,16 @@ function generateEnemies(context, enemiesCount, width, height, field) {
             width: width,
             height: height,
             totalSprites: 3,
-            x: width * getRandomInt(1,26),
-            y: height * getRandomInt(1,14)
+            x: width * getRandomInt(1, 26),
+            y: height * getRandomInt(1, 14)
         });
 
+        let isBlockFree = false;
         for (let j = 0; j < field.length; j++) {
             for (let k = 0; k < field.length; k++) {
                 //TODO: finish this shit;
                 // if (condition) {
-                    
+
                 // }
             }
         }
@@ -38,7 +39,7 @@ function isCollide(bomberMan, item) {
 }
 
 function getRandomInt(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min)) + min;
-    }
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min;
+}

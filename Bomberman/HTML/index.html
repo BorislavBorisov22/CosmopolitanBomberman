@@ -5,10 +5,6 @@
     <meta charset="UTF-8">
     <title>The BomberMan</title>
     <link rel="stylesheet" href="../CSS/style.css">
-    <script src="../JavaScript/Core/script.js"></script>
-    <script src="../JavaScript/Common/movement.js"></script>
-    <script src="../JavaScript/Enemy/generateEnemies.js"></script>
-    <script src="../JavaScript/Common/drawExitGate.js"></script>
     <!--<script src="../JavaScript/Jquery/jquery-1.11.3.js"></script>-->
     <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
 </head>
@@ -28,16 +24,24 @@
     <div id="player">
         <img src="../Images/bombermanTest.png" alt="" id="bombermanImg">
     </div>
-    <img id="bomb-image" src="../Images/bomb.png" alt="bomb" style="display: none;">
-    <img id="wall-image" src="../Images/wall.png" alt="wall" style="display: none;">
-    <img id="brick-image" src="../Images/brick.png" alt="brick" style="display: none;">
-    <img src="../Images/right.png" id="right" style="display: none;">
-    <img src="../Images/left.png" id="left" style="display: none;">
-    <img src="../Images/up.png" id="up" style="display: none;">
-    <img src="../Images/down.png" id="down" style="display: none;">
-    <img src="../Images/bomb-sprite.png" id="bomb-sprite" style="display: none;">
-    <img src="../Images/enemy-sprite.png" id="enemy-sprite" style="display: none;">
-    <script src="../JavaScript/Core/create-bomberman.js"></script>
+    <img id="bomb-image" src="../Images/bomb.png" alt="bomb">
+    <img id="wall-image" src="../Images/wall.png" alt="wall">
+    <img id="brick-image" src="../Images/brick.png" alt="brick">
+    <img src="../Images/right.png" id="right">
+    <img src="../Images/left.png" id="left">
+    <img src="../Images/up.png" id="up">
+    <img src="../Images/down.png" id="down">
+    <img src="../Images/bomb-sprite.png" id="bomb-sprite">
+    <img src="../Images/enemy-sprite.png" id="enemy-sprite">
+
+    <script src="../JavaScript/Globals/globals.js"></script>
+    <script src="../JavaScript/Core/physicalBody.js"></script>
+    <script src="../JavaScript/Core/sprite.js"></script>
+    <script src="../JavaScript/Core/script.js"></script>
+    <script src="../JavaScript/Common/movement.js"></script>
+    <script src="../JavaScript/Enemy/generateEnemies.js"></script>
+    <script src="../JavaScript/Common/drawExitGate.js"></script>
+    <script src="../JavaScript/Core/bomberman-sprite.js"></script>
     <script src="../JavaScript/Core/create-bomb.js"></script>
     <script src="../JavaScript/Core/create-enemy.js"></script>
     <script>
