@@ -1,25 +1,6 @@
 function createGame(selector) {
-
-    const field = [
-        "***************************",
-        "*                         *",
-        "* * * * * * * * * * * * * *",
-        "*                         *",
-        "* * * * * * * * * * * * * *",
-        "*                         *",
-        "* * * * * * * * * * * * * *",
-        "*                         *",
-        "* * * * * * * * * * * * * *",
-        "*                         *",
-        "* * * * * * * * * * * * * *",
-        "*                         *",
-        "* * * * * * * * * * * * * *",
-        "*                         *",
-        "***************************"
-    ];
-
     const bombermanCanvas = document.querySelector(selector),
-        ctx = bombermanCanvas.getContext('2d'),
+        ctxBomberman = bombermanCanvas.getContext('2d'),
         bomb = document.getElementById('bomb-image'),
         bombCanvas = document.getElementById('bomb-canvas'),
         ctxBomb = bombCanvas.getContext('2d');
@@ -27,78 +8,39 @@ function createGame(selector) {
     generateStones(field);
     const nonWalkables = drawGameField(field, ctxBomb);
 
-    const exitGate = new Image(),
-        bombarmanEnemy = new Image();
-
+    const collisionDetector = new CollisionDetector();
     const bombs = [];
-    const enemyDefaultSpeed = 1;
 
-    const bombermanBody = new PhysicalBody(CELL_SIZE, CELL_SIZE * 3, 0, CELL_SIZE, CELL_SIZE);
+    const bombermanBody = new PhysicalBody(CELL_SIZE, CELL_SIZE * 3, 0, CELL_SIZE, CELL_SIZE),
+        bombermanSprite = new BombermanSprite({
+            context: ctxBomberman,
+            spriteSheet: rightImg,
+            totalTicksPerFrame: BOMBERMAN_SPRITE_TICKS_FRAME,
+            width: CELL_SIZE,
+            height: CELL_SIZE,
+            totalSprites: BOMBERMAN_TOTAL_SPRITESHEETS,
+        });
 
-    const bombermanSprite = new BombermanSprite({
-        context: ctx,
-        spriteSheet: rightImg,
-        totalTicksPerFrame: BOMBERMAN_SPRITE_TICKS_FRAME,
-        width: CELL_SIZE,
-        height: CELL_SIZE,
-        totalSprites: BOMBERMAN_TOTAL_SPRITESHEETS,
-    });
+    const bomberman = getGameObject(bombermanSprite, bombermanBody),
+        enemies = generateEnemies(field, 10, ctxBomberman);
 
-    const bomberman = getGameObject(bombermanSprite, bombermanBody);
     bomberman.bombsCount = INITIAL_BOMBS_COUNT;
 
-    const enemies = []; //generateEnemies(ctx, NUMBER_OF_ENEMIES, CELL_SIZE, CELL_SIZE, field);
-
-    const firstEnemyBody = new PhysicalBody(CELL_SIZE, CELL_SIZE, 0, CELL_SIZE, CELL_SIZE);
-    const firstEnemySprite = new Sprite({
-        context: ctx,
-        spriteSheet: enemyImg,
-        totalTicksPerFrame: 5,
-        width: CELL_SIZE,
-        height: CELL_SIZE,
-        totalSprites: 4,
-    });
-
-    const firstEnemy = getGameObject(firstEnemySprite, firstEnemyBody);
-
-    enemies.push(firstEnemy);
-
+    // 0 => right 1 => down 2 => left 3 => up 
     const keyCodeDirs = {
-        37: 2,
-        38: 3,
-        39: 0,
-        40: 1
-    };
+            37: 2,
+            38: 3,
+            39: 0,
+            40: 1
+        },
+        speed = CELL_SIZE / 4,
+        enemyDirDeltas = [{ x: 1, y: 0 }, { x: 0, y: 1 }, { x: -1, y: 0 }, { x: 0, y: -1 }],
+        bombermanDirDeltas = [{ x: +speed, y: 0 }, { x: 0, y: +speed }, { x: -speed, y: 0 }, { x: 0, y: -speed }];
 
-    const speed = CELL_SIZE / 4;
-    const dirDeltas = [{
-            x: +speed,
-            y: 0
-        },
-        {
-            x: 0,
-            y: +speed
-        },
-        {
-            x: -speed,
-            y: 0
-        },
-        {
-            x: 0,
-            y: -speed
-        }
-    ];
-
-    /*
-     0 => right
-     1 => down
-     2 => left
-     3 => up
-     */
-    function checkIfBombermanHitsNonWalkable(bomberman, nonWalkables) {
+    function BodyHitsNonWalkable(bomberman, nonWalkables) {
         for (let i = 0; i < nonWalkables.length; i += 1) {
 
-            if (collidesWith(bomberman, nonWalkables[i])) {
+            if (collisionDetector.areColliding(bomberman, nonWalkables[i], CELL_SIZE, CELL_SIZE)) {
                 return true;
             }
         }
@@ -112,31 +54,22 @@ function createGame(selector) {
             return;
         }
 
-        const futureCoordinates = bomberman.body.getFutureCoordinates(dirDeltas, ev.keyCode, keyCodeDirs);
+        const futureCoordinates = bomberman.body.getFutureCoordinates(bombermanDirDeltas, ev.keyCode, keyCodeDirs);
 
-        if (checkIfBombermanHitsNonWalkable(futureCoordinates, nonWalkables)) {
+        if (BodyHitsNonWalkable(futureCoordinates, nonWalkables)) {
             return;
         }
 
         bomberman.body.updateDirection(ev.keyCode, keyCodeDirs);
-        bomberman.body.updatePostion(dirDeltas);
+        bomberman.body.updatePostion(bombermanDirDeltas);
 
-        //bomberman.update = bomberman.lastUpdate;
         bomberman.sprite.updateSpritesheet(bombermanBody.direction);
     });
-
-    document.body.addEventListener('keyup', function(ev) {
-        if (keyCodeDirs.hasOwnProperty(ev.keyCode)) {
-            //bomberman.update = function() {};
-        }
-    });
-
-    let bombsCount = INITIAL_BOMBS_COUNT;
 
     // placing bombs event
     document.body.addEventListener("keydown", function(ev) {
 
-        if (ev.keyCode !== 32 || bombsCount <= 0) {
+        if (ev.keyCode !== 32 || bomberman.bombsCount <= 0) {
             return;
         }
 
@@ -152,9 +85,8 @@ function createGame(selector) {
             totalSprites: 5,
         });
 
-        const bombToPlaceBody = new PhysicalBody(bombermanBody.x, bombermanBody.y, 0, CELL_SIZE, CELL_SIZE);
-
-        const bombToPlace = getGameObject(bombToPlaceSprite, bombToPlaceBody);
+        const bombToPlaceBody = new PhysicalBody(bombermanBody.x, bombermanBody.y, 0, CELL_SIZE, CELL_SIZE),
+            bombToPlace = getGameObject(bombToPlaceSprite, bombToPlaceBody);
 
         bombs.push(bombToPlace);
 
@@ -170,45 +102,23 @@ function createGame(selector) {
         }, 3000);
     });
 
-    let isGameOver = false;
-
     function gameLoop() {
-        ctx.clearRect(0, 0, 1000, 800);
+        ctxBomberman.clearRect(0, 0, 1000, 800);
         bomberman.sprite.render({ x: bombermanBody.x, y: bombermanBody.y }).update();
-        //TODO function to be invoked when the block is BLOWN!
-        //drawExitGate(exitGate, ctx, door);
-        // generateEnemy(bombarmanEnemy, ctx, enemy);
-        // generateEnemy(bombarmanEnemy, ctx, secondEnemy);
 
-        enemies.forEach(enemy => {
-            enemy.sprite.render({ x: enemy.body.x, y: enemy.body.y }).update();
+        updateEnemies(enemies);
 
-            if (collidesWith(bomberman.body, enemy.body)) {
-                isGameOver = true;
-                return;
-                //TODO to be added a picture how bomberman DIE
-            }
-
-            updateEnemyPosition(enemy);
-            //enemy.body.updatePostion(dirDeltas);
-        });
-
-        if (isGameOver) {
-            //alert('game over');
+        if (isGameOver()) {
             return;
         }
 
         window.requestAnimationFrame(gameLoop);
     }
 
-    // void ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+    function isGameOver() {
+        let isBombermanDead = enemies.some(e => collisionDetector.areColliding(bomberman.body, e.body, CELL_SIZE, CELL_SIZE));
 
-
-    function collidesWith(firstBody, secondBody) {
-        const isColliding = (firstBody.x < secondBody.x + CELL_SIZE && firstBody.x + CELL_SIZE > secondBody.x) &&
-            (firstBody.y < secondBody.y + CELL_SIZE && firstBody.y + CELL_SIZE > secondBody.y);
-
-        return isColliding;
+        return isBombermanDead;
     }
 
     function getGameObject(spriteObj, physicalBodyObj) {
@@ -217,31 +127,18 @@ function createGame(selector) {
         return gameObject;
     }
 
-    function updateEnemyPosition(enemy) {
+    function updateEnemies(enemies) {
+        enemies.forEach(enemy => {
+            enemy.sprite.render({ x: enemy.body.x, y: enemy.body.y }).update();
+            enemy.body.updatePostion(enemyDirDeltas);
 
-        const enemyDirDeltas = [{
-            x: 1,
-            y: 0
-        }, {
-            x: 0,
-            y: 1
-        }, {
-            x: -1,
-            y: 0
-        }, {
-            x: 0,
-            y: -1
-        }];
-
-        enemy.body.updatePostion(enemyDirDeltas);
-
-        const diffs = [-1, 1];
-        if (checkIfBombermanHitsNonWalkable(enemy.body, nonWalkables)) {
-            enemy.body.direction = enemy.body.direction + 1 >= dirDeltas.length ? 0 : enemy.body.direction + 1;
-        }
+            if (BodyHitsNonWalkable(enemy.body, nonWalkables)) {
+                enemy.body.direction = enemy.body.direction + 1 >= enemyDirDeltas.length ? 0 : enemy.body.direction + 1;
+            }
+        });
     }
 
     return {
-        start: gameLoop()
+        start: gameLoop
     };
 }

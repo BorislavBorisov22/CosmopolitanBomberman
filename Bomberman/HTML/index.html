@@ -35,20 +35,18 @@
     <img src="../Images/enemy-sprite.png" id="enemy-sprite">
 
     <script src="../JavaScript/Globals/globals.js"></script>
-    <script src="../JavaScript/Core/physicalBody.js"></script>
+    <script src="../JavaScript/Core/physical-body.js"></script>
     <script src="../JavaScript/Core/sprite.js"></script>
     <script src="../JavaScript/Core/game-field.js"></script>
+    <script src="../JavaScript/Core/collision-detector.js"></script>
     <script src="../JavaScript/Core/script.js"></script>
-    <script src="../JavaScript/Common/movement.js"></script>
     <script src="../JavaScript/Enemy/generateEnemies.js"></script>
     <script src="../JavaScript/Common/drawExitGate.js"></script>
     <script src="../JavaScript/Core/bomberman-sprite.js"></script>
-    <script src="../JavaScript/Core/create-bomb.js"></script>
-    <script src="../JavaScript/Core/create-enemy.js"></script>
     <script>
         window.addEventListener('load', function() {
-            let game = createGame("#game-canvas");
-            game.start;
+            const game = createGame("#game-canvas");
+            game.start();
         });
 
         //    function getName() {

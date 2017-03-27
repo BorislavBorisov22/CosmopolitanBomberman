@@ -1,45 +1,27 @@
-function generateEnemies(context, enemiesCount, width, height, field) {
+function generateEnemies(field, enemiesCount, enemiesContext) {
     const enemies = [];
 
-    for (let i = 0; i < enemiesCount; i += 1) {
-        let currentEnemy = createEnemy({
-            context: context,
-            width: width,
-            height: height,
-            totalSprites: 3,
-            x: width * getRandomInt(1, 26),
-            y: height * getRandomInt(1, 14)
-        });
+    while (enemiesCount > 0) {
+        const row = (Math.random() * (field.length - 2)) | 0;
+        const col = (Math.random() * (field[0].length - 2)) | 0;
 
-        let isBlockFree = false;
-        for (let j = 0; j < field.length; j++) {
-            for (let k = 0; k < field.length; k++) {
-                //TODO: finish this shit;
-                // if (condition) {
+        if (field[row][col] !== WALL_CHAR && field[row][col] !== BRICK_CHAR) {
+            const enemyBody = new PhysicalBody(row * CELL_SIZE, col * CELL_SIZE, (Math.random() * 4) | 0, CELL_SIZE, CELL_SIZE);
 
-                // }
-            }
+            const enemySprite = new Sprite({
+                width: CELL_SIZE,
+                height: CELL_SIZE,
+                context: enemiesContext,
+                spriteSheet: enemyImg,
+                totalTicksPerFrame: 4,
+                totalSprites: 4,
+            });
+
+            enemies.push({ body: enemyBody, sprite: enemySprite });
+
+            enemiesCount -= 1;
         }
-
     }
-    console.log(enemies.length);
+
     return enemies;
-}
-
-function isCollide(bomberMan, item) {
-    if (bomberMan.x < item.x + 37 &&
-        bomberMan.x + 37 > item.x &&
-        bomberMan.y < item.y + 37 &&
-        37 + bomberMan.y > item.y) {
-
-        return true;
-    }
-
-    return false;
-}
-
-function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min)) + min;
 }

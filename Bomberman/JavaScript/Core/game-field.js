@@ -3,7 +3,7 @@
 const door = {
     x: 1,
     y: 1,
-    isDoorPlaced: false
+    isPlaced: false
 };
 
 function getRandomInt(min, max) {
@@ -31,10 +31,10 @@ function generateStones(matrix) {
         }
 
         // place door
-        if (!door.isDoorPlaced) {
+        if (!door.isPlaced) {
             door.x = col;
             door.y = row;
-            door.isDoorPlaced = true;
+            door.isPlaced = true;
         }
     }
 }
