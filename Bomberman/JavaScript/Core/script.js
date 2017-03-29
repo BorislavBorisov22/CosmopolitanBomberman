@@ -179,11 +179,19 @@ function createGame(selector) {
             }
 
             if (collisionDetector.areColliding(bomberman.body, fire.body, CELL_SIZE, CELL_SIZE)) {
-                console.log('colliding');
                 setTimeout(function() {
-                    isPlayerDead = true;
-                }, 1000);
+                    if (collisionDetector.areColliding(bomberman.body, fire.body, CELL_SIZE, CELL_SIZE)) {
+                        isPlayerDead = true;
+                    }
+                }, 750);
             }
+
+            enemies.forEach((enemy, index) => {
+                if (collisionDetector.areColliding(enemy.body, fire.body, CELL_SIZE, CELL_SIZE)) {
+                    enemies.splice(index, 1);
+                }
+            });
+
         });
 
         if (door.isVisible) {
@@ -191,13 +199,12 @@ function createGame(selector) {
         }
 
         if (collisionDetector.haveSameCoordinates(bomberman.body, door)) {
-            ctxBomberman.fillStyle = 'black';
-            ctxBomberman.font = "200px Georgia";
+            ctxBomberman.fillStyle = 'yellowgreen';
+            ctxBomberman.font = "150px Georgia";
             ctxBomberman.fillText('Level Complete!', 10, bombermanCanvas.height / 2);
             //window.location.reload(true);
             return;
         }
-
 
         if (isGameOver() || isPlayerDead) {
             return;
@@ -207,7 +214,7 @@ function createGame(selector) {
     }
 
     function isGameOver() {
-        let isBombermanDead = enemies.some(e => collisionDetector.areColliding(bomberman.body, e.body, CELL_SIZE, CELL_SIZE));
+        let isBombermanDead = enemies.some(e => collisionDetector.areCollidingAsCircles(bomberman.body, e.body));
 
         return isBombermanDead;
     }
