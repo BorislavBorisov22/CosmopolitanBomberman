@@ -1,5 +1,7 @@
 'use strict';
 
+let isPlayerDead = false;
+
 const field = [
     "***************************",
     "*                         *",

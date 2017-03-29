@@ -55,15 +55,20 @@
     <script src="../JavaScript/Core/timer.js"></script>
     <script>
         window.addEventListener('load', function() {
+            console.log(isPlayerDead + '----');
+
             const game = createGame("#game-canvas");
             game.start();
-
-            //Timer
-            /*var fiveMinutes = 60 * 5,
-            display = document.querySelector('#time');
-            startTimer(fiveMinutes, display); */
+            console.log(isPlayerDead + '-----');
+            if (isPlayerDead) {
+                isPlayerDead = false;
+                game.start();
+            }
         });
-
+        //Timer
+        /*var fiveMinutes = 60 * 5,
+        display = document.querySelector('#time');
+        startTimer(fiveMinutes, display); */
         //    function getName() {
         //        document.getElementById("game-container").style.display = "block";
         //        var x = document.getElementById("myName").value;

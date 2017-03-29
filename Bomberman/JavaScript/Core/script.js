@@ -161,8 +161,7 @@ function createGame(selector) {
         });
     }
 
-    console.log(door.x, door.x);
-    door.isVisible = true;
+    console.log(door.x, door.y);
 
     function gameLoop() {
         ctxBomberman.clearRect(0, 0, 1000, 800);
@@ -173,7 +172,7 @@ function createGame(selector) {
         fires.forEach(function(fire, index) {
             fire.sprite.render({ x: fire.body.x, y: fire.body.y }).update();
 
-            if (fire.body.x === door.x && fire.body.y === door.y) {
+            if (collisionDetector.haveSameCoordinates(fire.body, door)) {
                 door.isVisible = true;
                 console.log('here');
             }
@@ -188,7 +187,10 @@ function createGame(selector) {
         }
 
         if (collisionDetector.haveSameCoordinates(bomberman.body, door)) {
-            alert('winner');
+            ctxBomberman.fillStyle = 'black';
+            ctxBomberman.font = "200px Georgia";
+            ctxBomberman.fillText('Level Complete!', 10, bombermanCanvas.height / 2);
+            window.location.reload(true);
         }
 
 
