@@ -24,7 +24,7 @@ const field = [
 const CELL_SIZE = 37,
     WALL_CHAR = '*',
     BRICK_CHAR = '-',
-    NUMBER_OF_ENEMIES = 1,
+    NUMBER_OF_ENEMIES = 5,
     INITIAL_BOMBS_COUNT = 3,
     FREE_SPACE_CHAR = ' ';
 

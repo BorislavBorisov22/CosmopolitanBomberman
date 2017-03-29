@@ -230,7 +230,6 @@ function createGame(selector) {
 
         return gameObject;
     }
-    let i = 0;
 
     function updateEnemies(enemies) {
         enemies.forEach(enemy => {
@@ -241,14 +240,15 @@ function createGame(selector) {
                 y: enemy.body.y + enemyDirDeltas[enemy.body.direction].y,
             };
 
-            if (i === 0) {
-                console.log(futureEnemyCoordinates.x + futureEnemyCoordinates.y);
-                console.log(enemy.body.x + " " + enemy.body.y);
-                i = 1;
-            }
 
             if (BodyHitsNonWalkable(futureEnemyCoordinates, nonWalkables)) {
-                enemy.body.direction = enemy.body.direction + 1 >= enemyDirDeltas.length ? 0 : enemy.body.direction + 1;
+                const initialDirection = enemy.body.direction;
+
+                while (initialDirection === enemy.body.direction) {
+                    enemy.body.direction = enemy.body.direction = (Math.random() * 4) | 0;
+                }
+
+                return;
             }
 
             enemy.body.updatePosition(enemyDirDeltas);
