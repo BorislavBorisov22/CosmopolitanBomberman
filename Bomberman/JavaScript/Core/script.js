@@ -161,8 +161,6 @@ function createGame(selector) {
         });
     }
 
-    console.log(door.x, door.y);
-
     function gameLoop() {
         ctxBomberman.clearRect(0, 0, 1000, 800);
         bomberman.sprite.render({ x: bombermanBody.x, y: bombermanBody.y }).update();
@@ -174,11 +172,17 @@ function createGame(selector) {
 
             if (collisionDetector.haveSameCoordinates(fire.body, door)) {
                 door.isVisible = true;
-                console.log('here');
             }
 
             if (fire.sprite.isBlown) {
                 fires.splice(index, 1);
+            }
+
+            if (collisionDetector.areColliding(bomberman.body, fire.body, CELL_SIZE, CELL_SIZE)) {
+                console.log('colliding');
+                setTimeout(function() {
+                    isPlayerDead = true;
+                }, 1000);
             }
         });
 
@@ -190,11 +194,12 @@ function createGame(selector) {
             ctxBomberman.fillStyle = 'black';
             ctxBomberman.font = "200px Georgia";
             ctxBomberman.fillText('Level Complete!', 10, bombermanCanvas.height / 2);
-            window.location.reload(true);
+            //window.location.reload(true);
+            return;
         }
 
 
-        if (isGameOver()) {
+        if (isGameOver() || isPlayerDead) {
             return;
         }
 
