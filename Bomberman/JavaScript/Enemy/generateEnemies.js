@@ -17,7 +17,7 @@ function generateEnemies(field, enemiesCount, enemiesContext) {
                 totalSprites: 4,
             });
 
-            enemies.push({ body: enemyBody, sprite: enemySprite });
+            enemies.push({body: enemyBody, sprite: enemySprite});
 
             enemiesCount -= 1;
         }

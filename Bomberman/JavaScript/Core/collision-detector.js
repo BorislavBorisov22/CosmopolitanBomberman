@@ -20,8 +20,8 @@ class CollisionDetector {
     areCollidingAsCircles(firstBody, secondBody) {
         const offset = 7;
 
-        const firstBodyCenterPoint = { x: firstBody.x + firstBody.width / 2, y: firstBody.y + firstBody.height / 2 };
-        const secondBodyCenterPoint = { x: secondBody.x + secondBody.width / 2, y: secondBody.y + secondBody.height / 2 };
+        const firstBodyCenterPoint = {x: firstBody.x + firstBody.width / 2, y: firstBody.y + firstBody.height / 2};
+        const secondBodyCenterPoint = {x: secondBody.x + secondBody.width / 2, y: secondBody.y + secondBody.height / 2};
 
         const firstBodyRadius = (firstBody.width + firstBody.height) / 4;
         const secondBodyRadius = (secondBody.width + secondBody.height) / 4;

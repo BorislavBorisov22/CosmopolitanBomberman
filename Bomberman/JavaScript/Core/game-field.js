@@ -55,7 +55,7 @@ function drawGameField(field, context) {
                 stoneToDraw = wallImage;
             } else if (currentSymbol === BRICK_CHAR) {
                 stoneToDraw = brickImage;
-                bricks.push({ x: CELL_SIZE * j, y: CELL_SIZE * i });
+                bricks.push({x: CELL_SIZE * j, y: CELL_SIZE * i});
             } else {
                 continue;
             }
@@ -71,28 +71,28 @@ function drawGameField(field, context) {
                 CELL_SIZE
             );
 
-            nonWalkables.push({ x: CELL_SIZE * j, y: CELL_SIZE * i });
+            nonWalkables.push({x: CELL_SIZE * j, y: CELL_SIZE * i});
         }
     }
 
-    return { nonWalkables: nonWalkables, bricks: bricks };
+    return {nonWalkables: nonWalkables, bricks: bricks};
 }
 
 
 //Timer
 /*function startTimer(duration, display) {
-    var timer = duration, minutes, seconds;
-    setInterval(function () {
-        minutes = parseInt(timer / 60, 10)
-        seconds = parseInt(timer % 60, 10);
+ var timer = duration, minutes, seconds;
+ setInterval(function () {
+ minutes = parseInt(timer / 60, 10)
+ seconds = parseInt(timer % 60, 10);
 
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
+ minutes = minutes < 10 ? "0" + minutes : minutes;
+ seconds = seconds < 10 ? "0" + seconds : seconds;
 
-        display.textContent = minutes + ":" + seconds;
+ display.textContent = minutes + ":" + seconds;
 
-        if (--timer < 0) {
-            timer = duration;
-        }
-    }, 1000);
-} */
+ if (--timer < 0) {
+ timer = duration;
+ }
+ }, 1000);
+ } */

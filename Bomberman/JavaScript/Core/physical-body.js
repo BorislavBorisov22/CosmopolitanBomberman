@@ -21,7 +21,7 @@ class PhysicalBody {
         const x = this.x + dirDeltas[futureDir].x;
         const y = this.y + dirDeltas[futureDir].y;
 
-        return { x: x, y: y };
+        return {x: x, y: y};
     }
 
     updateDirection(keyCode, keyCodeDirs) {

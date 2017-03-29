@@ -12,7 +12,7 @@ function createGame(selector) {
     bombCanvas.height = field.length * CELL_SIZE;
 
     let timer = new Timer();
-    setInterval(function() {
+    setInterval(function () {
         timer.updateTimer();
     }, 1000);
 
@@ -49,8 +49,8 @@ function createGame(selector) {
             40: 1
         },
         speed = CELL_SIZE / 4,
-        enemyDirDeltas = [{ x: 1, y: 0 }, { x: 0, y: 1 }, { x: -1, y: 0 }, { x: 0, y: -1 }],
-        bombermanDirDeltas = [{ x: +speed, y: 0 }, { x: 0, y: +speed }, { x: -speed, y: 0 }, { x: 0, y: -speed }];
+        enemyDirDeltas = [{x: 1, y: 0}, {x: 0, y: 1}, {x: -1, y: 0}, {x: 0, y: -1}],
+        bombermanDirDeltas = [{x: +speed, y: 0}, {x: 0, y: +speed}, {x: -speed, y: 0}, {x: 0, y: -speed}];
 
     function BodyHitsNonWalkable(bomberman, nonWalkables) {
         for (let i = 0; i < nonWalkables.length; i += 1) {
@@ -64,7 +64,7 @@ function createGame(selector) {
     }
 
     // moving bomberman logic
-    document.body.addEventListener("keydown", function(ev) {
+    document.body.addEventListener("keydown", function (ev) {
         if (!keyCodeDirs.hasOwnProperty(ev.keyCode)) {
             return;
         }
@@ -78,11 +78,11 @@ function createGame(selector) {
         bomberman.body.updateDirection(ev.keyCode, keyCodeDirs);
         bomberman.body.updatePosition(bombermanDirDeltas);
 
-        bomberman.sprite.updateSpritesheet(bombermanBody.direction);
+        bomberman.sprite.updateSpriteSheet(bombermanBody.direction);
     });
 
     // placing bombs event
-    document.body.addEventListener("keydown", function(ev) {
+    document.body.addEventListener("keydown", function (ev) {
 
         if (ev.keyCode !== 32 || bomberman.bombsCount <= 0) {
             return;
@@ -125,11 +125,11 @@ function createGame(selector) {
 
         bombs.push(bombToPlace);
 
-        setInterval(function() {
-            bombs.forEach(b => b.sprite.update().render({ x: b.body.x, y: b.body.y }));
+        setInterval(function () {
+            bombs.forEach(b => b.sprite.update().render({x: b.body.x, y: b.body.y}));
         }, 100);
 
-        setTimeout(function() {
+        setTimeout(function () {
             const firstBomb = bombs.shift();
 
             destroyBricksInRange(firstBomb.body);
@@ -140,7 +140,7 @@ function createGame(selector) {
     });
 
     function destroyBricksInRange(bomb) {
-        let targetBricks = bricks.filter((b, index) => {
+        let targetBricks = bricks.filter((b) => {
 
             const diffX = Math.abs(b.x - bomb.x),
                 diffY = Math.abs(b.y - bomb.y);
@@ -150,11 +150,11 @@ function createGame(selector) {
             return isInRange;
         });
 
-        const rightFire = createBombFire(rightFireImg, bomb.x + CELL_SIZE, bomb.y, ctxBomberman),
-            leftFire = createBombFire(leftFireImg, bomb.x - CELL_SIZE, bomb.y, ctxBomberman),
-            upFire = createBombFire(upFireImg, bomb.x, bomb.y + CELL_SIZE, ctxBomberman),
-            downFire = createBombFire(downFireImg, bomb.x, bomb.y - CELL_SIZE, ctxBomberman),
-            centerFire = createBombFire(rightFireImg, bomb.x, bomb.y, ctxBomberman);
+        const rightFire = createBombFire(bomb.x + CELL_SIZE, bomb.y, ctxBomberman),
+            leftFire = createBombFire(bomb.x - CELL_SIZE, bomb.y, ctxBomberman),
+            upFire = createBombFire(bomb.x, bomb.y + CELL_SIZE, ctxBomberman),
+            downFire = createBombFire(bomb.x, bomb.y - CELL_SIZE, ctxBomberman),
+            centerFire = createBombFire(bomb.x, bomb.y, ctxBomberman);
 
         fires.push(rightFire, leftFire, upFire, downFire, centerFire);
 
@@ -169,12 +169,12 @@ function createGame(selector) {
 
     function gameLoop() {
         ctxBomberman.clearRect(0, 0, 1000, 800);
-        bomberman.sprite.render({ x: bombermanBody.x, y: bombermanBody.y }).update();
+        bomberman.sprite.render({x: bombermanBody.x, y: bombermanBody.y}).update();
 
         updateEnemies(enemies);
 
-        fires.forEach(function(fire, index) {
-            fire.sprite.render({ x: fire.body.x, y: fire.body.y }).update();
+        fires.forEach(function (fire, index) {
+            fire.sprite.render({x: fire.body.x, y: fire.body.y}).update();
 
             if (collisionDetector.haveSameCoordinates(fire.body, door)) {
                 door.isVisible = true;
@@ -185,7 +185,7 @@ function createGame(selector) {
             }
 
             if (collisionDetector.areColliding(bomberman.body, fire.body, CELL_SIZE, CELL_SIZE)) {
-                setTimeout(function() {
+                setTimeout(function () {
                     if (collisionDetector.areColliding(bomberman.body, fire.body, CELL_SIZE, CELL_SIZE)) {
                         isPlayerDead = true;
                     }
@@ -201,7 +201,7 @@ function createGame(selector) {
         });
 
         if (door.isVisible) {
-            drawExitGate(exitDoor, ctxBomb, { x: door.x, y: door.y });
+            drawExitGate(exitDoor, ctxBomb, {x: door.x, y: door.y});
         }
 
         if (collisionDetector.haveSameCoordinates(bomberman.body, door)) {
@@ -226,14 +226,14 @@ function createGame(selector) {
     }
 
     function getGameObject(spriteObj, physicalBodyObj) {
-        const gameObject = { sprite: spriteObj, body: physicalBodyObj };
+        const gameObject = {sprite: spriteObj, body: physicalBodyObj};
 
         return gameObject;
     }
 
     function updateEnemies(enemies) {
         enemies.forEach(enemy => {
-            enemy.sprite.render({ x: enemy.body.x, y: enemy.body.y }).update();
+            enemy.sprite.render({x: enemy.body.x, y: enemy.body.y}).update();
 
             const futureEnemyCoordinates = {
                 x: enemy.body.x + enemyDirDeltas[enemy.body.direction].x,
