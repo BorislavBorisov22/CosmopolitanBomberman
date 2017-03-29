@@ -100,7 +100,7 @@ function createGame(selector) {
             totalSprites: 5,
         });
 
-        function checkIfCordinatesAreModuleofCellSize(cords) {
+        function checkIfCoordinatesAreModuleOfCellSize(cords) {
             if (cords % 37 === 0) {
                 return cords;
             } else {
@@ -117,8 +117,8 @@ function createGame(selector) {
             }
         }
 
-        let x = checkIfCordinatesAreModuleofCellSize(bombermanBody.x);
-        let y = checkIfCordinatesAreModuleofCellSize(bombermanBody.y);
+        let x = checkIfCoordinatesAreModuleOfCellSize(bombermanBody.x);
+        let y = checkIfCoordinatesAreModuleOfCellSize(bombermanBody.y);
 
         const bombToPlaceBody = new PhysicalBody(x, y, 0, CELL_SIZE, CELL_SIZE),
             bombToPlace = getGameObject(bombToPlaceSprite, bombToPlaceBody);
