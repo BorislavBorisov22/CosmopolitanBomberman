@@ -23,7 +23,7 @@ const CELL_SIZE = 37,
     WALL_CHAR = '*',
     BRICK_CHAR = '-',
     bombPixels = 37,
-    NUMBER_OF_ENEMIES = 5,
+    NUMBER_OF_ENEMIES = 1,
     INITIAL_BOMBS_COUNT = 3,
     FREE_SPACE_CHAR = ' ';
 

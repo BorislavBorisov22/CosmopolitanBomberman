@@ -2,7 +2,7 @@
 class Timer{
     constructor(){
         this.h2 = document.getElementById('timer');
-        this.h2.innerText += 120;
+        this.h2.innerText += 300;
     }
 
     updateTimer (){
