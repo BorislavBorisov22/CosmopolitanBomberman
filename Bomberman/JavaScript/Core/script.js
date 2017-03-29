@@ -26,6 +26,19 @@ function createGame(selector) {
 
     bomberman.bombsCount = INITIAL_BOMBS_COUNT;
 
+    const bombFireSprite = new Sprite({
+        context: ctxBomb,
+        spritesheet: bombFireImg,
+        totalTicksPerFrame: 5,
+        totalSprites: 6,
+        width: CELL_SIZE,
+        height: CELL_SIZE
+    });
+
+    const bombFireBody = new PhysicalBody(CELL_SIZE * 2, CELL_SIZE * 2, 0, CELL_SIZE, CELL_SIZE);
+
+    const bombFire = getGameObject(bombFireSprite, bombFireBody);
+
     // 0 => right 1 => down 2 => left 3 => up 
     const keyCodeDirs = {
             37: 2,
@@ -105,6 +118,8 @@ function createGame(selector) {
     function gameLoop() {
         ctxBomberman.clearRect(0, 0, 1000, 800);
         bomberman.sprite.render({ x: bombermanBody.x, y: bombermanBody.y }).update();
+
+        bombFire.sprite.render({ x: bombFireSprite.body.x, y: bombFire.body.y }).update();
 
         updateEnemies(enemies);
 
