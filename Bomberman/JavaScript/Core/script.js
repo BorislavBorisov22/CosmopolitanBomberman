@@ -245,7 +245,7 @@ function createGame(selector) {
                 const initialDirection = enemy.body.direction;
 
                 while (initialDirection === enemy.body.direction) {
-                    enemy.body.direction = enemy.body.direction = (Math.random() * 4) | 0;
+                    enemy.body.direction = enemy.body.direction = getRandomInt(0, 4);
                 }
 
                 return;
