@@ -1,0 +1,19 @@
+
+class Timer{
+    constructor(){
+        this.h2 = document.getElementById('timer');
+        this.h2.innerText += 120;
+    }
+
+    updateTimer (){
+            let number = Number(this.h2.innerText.split(':')[1]);
+            let text = this.h2.innerText.split(':')[0]+":";
+            number -=1;
+            this.h2.innerText = text+number;
+            if(number<1){
+                alert("Game Over");
+            }
+    }
+
+
+}

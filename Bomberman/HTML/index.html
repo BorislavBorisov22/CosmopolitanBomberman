@@ -11,6 +11,7 @@
 
 <body>
     <h1>The BomberMan Game</h1>
+
     <p id="player-name"></p>
     <!--<div id="name-container">-->
     <!--<p>Please enter your name</p>-->
@@ -43,6 +44,7 @@
     <script src="../JavaScript/Enemy/generateEnemies.js"></script>
     <script src="../JavaScript/Common/drawExitGate.js"></script>
     <script src="../JavaScript/Core/bomberman-sprite.js"></script>
+    <script src="../JavaScript/Core/timer.js"></script>
     <script>
         window.addEventListener('load', function() {
             const game = createGame("#game-canvas");
@@ -55,6 +57,7 @@
         //        document.getElementById("player-name").innerHTML = "Hello," + x;
         //        document.getElementById("name-container").style.display = "none";
     </script>
+    <h2 id="timer">Time remaining:</h2>
 </body>
 
 </html>

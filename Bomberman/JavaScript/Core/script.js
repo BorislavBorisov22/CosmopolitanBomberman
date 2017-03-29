@@ -4,6 +4,11 @@ function createGame(selector) {
         bomb = document.getElementById('bomb-image'),
         bombCanvas = document.getElementById('bomb-canvas'),
         ctxBomb = bombCanvas.getContext('2d');
+        let timer = new Timer();
+        setInterval(function () {
+            timer.updateTimer();
+        },1000)
+    
 
     generateStones(field);
     const nonWalkables = drawGameField(field, ctxBomb);

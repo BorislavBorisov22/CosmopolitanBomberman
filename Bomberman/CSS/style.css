@@ -43,6 +43,11 @@ body {
     position: relative;
     /*display: none;*/
 }
+h2{
+    float: right;
+    margin-right: 100px;
+    color: darkmagenta;
+}
 
 #test {
     width: 10px;
