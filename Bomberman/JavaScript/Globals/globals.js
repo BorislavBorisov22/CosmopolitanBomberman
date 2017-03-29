@@ -46,3 +46,5 @@ const wallImage = document.getElementById('wall-image'),
     upFireImg = document.getElementById('up-fire-sprite'),
     downFireImg = document.getElementById('down-fire-sprite'),
     exitDoor = document.getElementById('exit-door');
+
+let numberOfBricks = 70;

@@ -14,10 +14,10 @@ function getRandomInt(min, max) {
 }
 
 function generateStones(matrix) {
-    for (let i = 0; i < 70; i += 1) {
+    for (let i = 0; i < numberOfBricks; i += 1) {
 
-        const row = getRandomInt(1, 14);
-        const col = getRandomInt(1, 26);
+        const row = getRandomInt(1, field.length - 1);
+        const col = getRandomInt(1, field[0].length - 1);
 
         // check if random brick is in start position of bomberman
         if ((row === 3 && col === 1) || (row === 4 && col === 1) || (row === 3 && col === 2) ||
