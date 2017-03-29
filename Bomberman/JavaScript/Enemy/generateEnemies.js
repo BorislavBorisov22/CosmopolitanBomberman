@@ -6,7 +6,7 @@ function generateEnemies(field, enemiesCount, enemiesContext) {
         const col = getRandomInt(1, field.length - 1);
 
         if (field[row][col] !== WALL_CHAR && field[row][col] !== BRICK_CHAR) {
-            const enemyBody = new PhysicalBody(col * CELL_SIZE, row * CELL_SIZE, (Math.random() * 4) | 0, CELL_SIZE, CELL_SIZE);
+            const enemyBody = new PhysicalBody(col * CELL_SIZE, row * CELL_SIZE, getRandomInt(0, 3), CELL_SIZE, CELL_SIZE);
 
             const enemySprite = new Sprite({
                 width: CELL_SIZE,

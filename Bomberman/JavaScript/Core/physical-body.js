@@ -10,7 +10,7 @@ class PhysicalBody {
         this.height = height;
     }
 
-    updatePostion(dirDeltas) {
+    updatePosition(dirDeltas) {
         this.x += dirDeltas[this.direction].x;
         this.y += dirDeltas[this.direction].y;
     }
