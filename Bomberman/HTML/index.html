@@ -18,9 +18,11 @@
     <!--<input type="text" name="myName" id="myName"  size="40">-->
     <!--<input type="button" value="Start Game" onclick="getName()">-->
     <!--</div>-->
+	<!--<div class="timer">Time left <span id="time">05:00</span> minutes!</div>-->
     <div id="game-container">
         <canvas id="bomb-canvas" width="999" height="555"></canvas>
         <canvas id="game-canvas" width="999" height="555"></canvas>
+		
     </div>
     <div id="player">
         <img src="../Images/bombermanTest.png" alt="" id="bombermanImg">
@@ -49,6 +51,11 @@
         window.addEventListener('load', function() {
             const game = createGame("#game-canvas");
             game.start();
+			
+			//Timer
+		    /*var fiveMinutes = 60 * 5,
+            display = document.querySelector('#time');
+            startTimer(fiveMinutes, display); */
         });
 
         //    function getName() {
