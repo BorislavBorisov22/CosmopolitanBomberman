@@ -4,13 +4,12 @@ function createGame(selector) {
         bomb = document.getElementById('bomb-image'),
         bombCanvas = document.getElementById('bomb-canvas'),
         ctxBomb = bombCanvas.getContext('2d');
-        bombCanvas.width = field[0].length * CELL_SIZE;
-        console.log(bombCanvas.width);
 
-        bombCanvas.height = field.length * CELL_SIZE;
-        console.log(bombCanvas.height);
-        bombermanCanvas.width = field[0].length * CELL_SIZE;
-        bombermanCanvas.height = field.length * CELL_SIZE;
+    bombermanCanvas.width = field[0].length * CELL_SIZE;
+    bombermanCanvas.height = field.length * CELL_SIZE;
+
+    bombCanvas.width = field[0].length * CELL_SIZE;
+    bombCanvas.height = field.length * CELL_SIZE;
 
     let timer = new Timer();
     setInterval(function() {
@@ -101,12 +100,12 @@ function createGame(selector) {
             totalSprites: 5,
         });
 
-        function checkIfCoordinatesAreModuleOfCellSize(cords) {
-            if (cords % CELL_SIZE === 0) {
+        function checkIfCordinatesAreModuleofCellSize(cords) {
+            if (cords % 37 === 0) {
                 return cords;
             } else {
-                let reminder = cords % CELL_SIZE;
-                let toAdd = CELL_SIZE - reminder;
+                let reminder = cords % 37;
+                let toAdd = 37 - reminder;
                 //backward && right
                 if (bomberman.body.direction === 1 || bomberman.body.direction === 0) {
                     return cords + toAdd;
@@ -118,8 +117,8 @@ function createGame(selector) {
             }
         }
 
-        let x = checkIfCoordinatesAreModuleOfCellSize(bombermanBody.x);
-        let y = checkIfCoordinatesAreModuleOfCellSize(bombermanBody.y);
+        let x = checkIfCordinatesAreModuleofCellSize(bombermanBody.x);
+        let y = checkIfCordinatesAreModuleofCellSize(bombermanBody.y);
 
         const bombToPlaceBody = new PhysicalBody(x, y, 0, CELL_SIZE, CELL_SIZE),
             bombToPlace = getGameObject(bombToPlaceSprite, bombToPlaceBody);
@@ -231,18 +230,28 @@ function createGame(selector) {
 
         return gameObject;
     }
+    let i = 0;
 
     function updateEnemies(enemies) {
         enemies.forEach(enemy => {
-            debugger;
             enemy.sprite.render({ x: enemy.body.x, y: enemy.body.y }).update();
-            enemy.body.updatePosition(enemyDirDeltas);
 
-            if (BodyHitsNonWalkable(enemy.body, nonWalkables)) {
-                enemy.body.direction = (enemy.body.direction + 1) % enemyDirDeltas.length;
+            const futureEnemyCoordinates = {
+                x: enemy.body.x + enemyDirDeltas[enemy.body.direction].x,
+                y: enemy.body.y + enemyDirDeltas[enemy.body.direction].y,
+            };
+
+            if (i === 0) {
+                console.log(futureEnemyCoordinates.x + futureEnemyCoordinates.y);
+                console.log(enemy.body.x + " " + enemy.body.y);
+                i = 1;
             }
 
+            if (BodyHitsNonWalkable(futureEnemyCoordinates, nonWalkables)) {
+                enemy.body.direction = enemy.body.direction + 1 >= enemyDirDeltas.length ? 0 : enemy.body.direction + 1;
+            }
 
+            enemy.body.updatePosition(enemyDirDeltas);
         });
     }
 

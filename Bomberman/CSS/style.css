@@ -43,7 +43,8 @@ body {
     position: relative;
     /*display: none;*/
 }
-h2{
+
+h2 {
     float: right;
     margin-right: 100px;
     color: darkmagenta;
@@ -58,8 +59,11 @@ h2{
     display: none;
 }
 
+
 /*Timer*/
- /*.timer {
+
+
+/*.timer {
 	background: black;
 	color: white;
 	font-size: 25px;
@@ -68,6 +72,7 @@ h2{
     margin: auto;
 }
 */
+
 @media screen and (min-width: 1200px) {
     #game-container {
         width: 65%;

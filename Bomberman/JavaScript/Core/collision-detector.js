@@ -8,6 +8,7 @@ class CollisionDetector {
     areColliding(firstBody, secondBody, width, height) {
         const areColliding = (firstBody.x < secondBody.x + width && firstBody.x + width > secondBody.x) &&
             (firstBody.y < secondBody.y + height && firstBody.y + height > secondBody.y);
+
         return areColliding;
     }
 
@@ -17,6 +18,7 @@ class CollisionDetector {
     }
 
     areCollidingAsCircles(firstBody, secondBody) {
+        const offset = 7;
 
         const firstBodyCenterPoint = { x: firstBody.x + firstBody.width / 2, y: firstBody.y + firstBody.height / 2 };
         const secondBodyCenterPoint = { x: secondBody.x + secondBody.width / 2, y: secondBody.y + secondBody.height / 2 };
@@ -29,7 +31,7 @@ class CollisionDetector {
 
         const distance = Math.sqrt(diffX * diffX + diffY * diffY);
 
-        const areColliding = distance < firstBodyRadius + secondBodyRadius - 7;
+        const areColliding = distance < firstBodyRadius + secondBodyRadius - offset;
         console.log(areColliding);
         return areColliding;
     }
