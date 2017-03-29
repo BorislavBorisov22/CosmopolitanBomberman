@@ -11,15 +11,18 @@
 
 <body>
     <h1>The BomberMan Game</h1>
+
     <p id="player-name"></p>
     <!--<div id="name-container">-->
     <!--<p>Please enter your name</p>-->
     <!--<input type="text" name="myName" id="myName"  size="40">-->
     <!--<input type="button" value="Start Game" onclick="getName()">-->
     <!--</div>-->
+	<!--<div class="timer">Time left <span id="time">05:00</span> minutes!</div>-->
     <div id="game-container">
         <canvas id="bomb-canvas" width="999" height="555"></canvas>
         <canvas id="game-canvas" width="999" height="555"></canvas>
+		
     </div>
     <div id="player">
         <img src="../Images/bombermanTest.png" alt="" id="bombermanImg">
@@ -44,10 +47,16 @@
     <script src="../JavaScript/Enemy/generateEnemies.js"></script>
     <script src="../JavaScript/Common/drawExitGate.js"></script>
     <script src="../JavaScript/Core/bomberman-sprite.js"></script>
+    <script src="../JavaScript/Core/timer.js"></script>
     <script>
         window.addEventListener('load', function() {
             const game = createGame("#game-canvas");
             game.start();
+			
+			//Timer
+		    /*var fiveMinutes = 60 * 5,
+            display = document.querySelector('#time');
+            startTimer(fiveMinutes, display); */
         });
 
         //    function getName() {
@@ -56,6 +65,7 @@
         //        document.getElementById("player-name").innerHTML = "Hello," + x;
         //        document.getElementById("name-container").style.display = "none";
     </script>
+    <h2 id="timer">Time remaining:</h2>
 </body>
 
 </html>

@@ -6,3 +6,4 @@ function drawExitGate(exitGate, ctx, door) {
 
     ctx.drawImage(exitGate, door.x * 37, door.y * 37);
 }
+
