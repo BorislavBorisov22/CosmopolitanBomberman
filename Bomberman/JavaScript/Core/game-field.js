@@ -20,8 +20,7 @@ function generateStones(matrix) {
         const col = getRandomInt(1, field[0].length - 1);
 
         // check if random brick is in start position of bomberman
-        if ((row === 3 && col === 1) || (row === 4 && col === 1) || (row === 3 && col === 2) ||
-            (row === 2 && col === 1) || (row === 1 && col === 1) || (row === 1 && col === 2)) {
+        if (!checkForHeroFreedom(row, col)) {
             i -= 1;
             continue;
         } else if ((row % 2 === 0 && col % 2 === 0)) {
@@ -78,7 +77,13 @@ function drawGameField(field, context) {
     return {nonWalkables: nonWalkables, bricks: bricks};
 }
 
-
+function checkForHeroFreedom(row, col) {
+    if ((row === 3 && col === 1) || (row === 4 && col === 1) || (row === 5 && col === 1) || (row === 3 && col === 2) ||
+        (row === 2 && col === 1) || (row === 1 && col === 1) || (row === 1 && col === 2) || (row === 3 && col === 3)) {
+        return false;
+    }
+    return true;
+}
 //Timer
 /*function startTimer(duration, display) {
  var timer = duration, minutes, seconds;
