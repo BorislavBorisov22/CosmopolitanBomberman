@@ -3,7 +3,8 @@
 const door = {
     x: 1,
     y: 1,
-    isPlaced: false
+    isPlaced: false,
+    isVisible: false
 };
 
 function getRandomInt(min, max) {
@@ -32,8 +33,8 @@ function generateStones(matrix) {
 
         // place door
         if (!door.isPlaced) {
-            door.x = col;
-            door.y = row;
+            door.x = col * CELL_SIZE;
+            door.y = row * CELL_SIZE;
             door.isPlaced = true;
         }
     }

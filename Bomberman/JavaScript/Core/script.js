@@ -17,7 +17,8 @@ function createGame(selector) {
         bricks = nonWalkablesObj.bricks;
 
     const collisionDetector = new CollisionDetector();
-    const bombs = [];
+    const bombs = [],
+        fires = [];
 
     const bombermanBody = new PhysicalBody(CELL_SIZE, CELL_SIZE * 3, 0, CELL_SIZE, CELL_SIZE),
         bombermanSprite = new BombermanSprite({
@@ -33,19 +34,6 @@ function createGame(selector) {
         enemies = generateEnemies(field, NUMBER_OF_ENEMIES, ctxBomberman);
 
     bomberman.bombsCount = INITIAL_BOMBS_COUNT;
-
-    const bombFireSprite = new Sprite({
-        context: ctxBomb,
-        spritesheet: bombFireImg,
-        totalTicksPerFrame: 5,
-        totalSprites: 6,
-        width: CELL_SIZE,
-        height: CELL_SIZE
-    });
-
-    const bombFireBody = new PhysicalBody(CELL_SIZE * 2, CELL_SIZE * 2, 0, CELL_SIZE, CELL_SIZE);
-
-    const bombFire = getGameObject(bombFireSprite, bombFireBody);
 
     // 0 => right 1 => down 2 => left 3 => up 
     const keyCodeDirs = {
@@ -151,12 +139,19 @@ function createGame(selector) {
             const diffX = Math.abs(b.x - bomb.x),
                 diffY = Math.abs(b.y - bomb.y);
 
-            let isInRange = (diffX === 0 && diffY === CELL_SIZE) || (diffY === 0 && diffX === CELL_SIZE);
+            let isInRange = (diffX === 0 && diffY <= CELL_SIZE) || (diffY === 0 && diffX <= CELL_SIZE);
 
             return isInRange;
         });
 
-        console.log(targetBricks);
+        const rightFire = createBombFire(rightFireImg, bomb.x + CELL_SIZE, bomb.y, ctxBomberman),
+            leftFire = createBombFire(leftFireImg, bomb.x - CELL_SIZE, bomb.y, ctxBomberman),
+            upFire = createBombFire(upFireImg, bomb.x, bomb.y + CELL_SIZE, ctxBomberman),
+            downFire = createBombFire(downFireImg, bomb.x, bomb.y - CELL_SIZE, ctxBomberman),
+            centerFire = createBombFire(rightFireImg, bomb.x, bomb.y, ctxBomberman);
+
+        fires.push(rightFire, leftFire, upFire, downFire, centerFire);
+
         targetBricks.forEach(b => {
             ctxBomb.clearRect(b.x, b.y, CELL_SIZE, CELL_SIZE);
 
@@ -164,16 +159,38 @@ function createGame(selector) {
             nonWalkables.splice(targetIndex, 1);
             // console.log(targetIndex);
         });
-
-        // console.log(targetBricks);
-
     }
+
+    console.log(door.x, door.x);
+    door.isVisible = true;
 
     function gameLoop() {
         ctxBomberman.clearRect(0, 0, 1000, 800);
         bomberman.sprite.render({ x: bombermanBody.x, y: bombermanBody.y }).update();
 
         updateEnemies(enemies);
+
+        fires.forEach(function(fire, index) {
+            fire.sprite.render({ x: fire.body.x, y: fire.body.y }).update();
+
+            if (fire.body.x === door.x && fire.body.y === door.y) {
+                door.isVisible = true;
+                console.log('here');
+            }
+
+            if (fire.sprite.isBlown) {
+                fires.splice(index, 1);
+            }
+        });
+
+        if (door.isVisible) {
+            drawExitGate(exitDoor, ctxBomb, { x: door.x, y: door.y });
+        }
+
+        if (collisionDetector.haveSameCoordinates(bomberman.body, door)) {
+            alert('winner');
+        }
+
 
         if (isGameOver()) {
             return;
