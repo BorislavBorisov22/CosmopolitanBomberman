@@ -42,6 +42,7 @@ function generateStones(matrix) {
 function drawGameField(field, context) {
 
     const nonWalkables = [];
+    const bricks = [];
 
     for (let i = 0; i < field.length; i++) {
         for (let j = 0; j < field[0].length; j++) {
@@ -53,6 +54,7 @@ function drawGameField(field, context) {
                 stoneToDraw = wallImage;
             } else if (currentSymbol === BRICK_CHAR) {
                 stoneToDraw = brickImage;
+                bricks.push({ x: CELL_SIZE * j, y: CELL_SIZE * i });
             } else {
                 continue;
             }
@@ -72,7 +74,7 @@ function drawGameField(field, context) {
         }
     }
 
-    return nonWalkables;
+    return { nonWalkables: nonWalkables, bricks: bricks };
 }
 
 
