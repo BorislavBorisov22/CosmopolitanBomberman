@@ -29,6 +29,11 @@ const bettySelect = document.getElementById('betty-select'),
     startButton = document.getElementsByTagName('BUTTON')[0];
 
 startButton.addEventListener('click', function() {
+
+    const playerHero = georgeSelect.checked ? "george" : "betty";
+
+    localStorage.setItem('player-hero', playerHero);
+
     setTimeout(function() {
         window.location = 'game.html';
     }, 2000);

@@ -45,10 +45,14 @@ const wallImage = document.getElementById('wall-image'),
     rightFireImg = document.getElementById('right-fire-sprite'),
     upFireImg = document.getElementById('up-fire-sprite'),
     downFireImg = document.getElementById('down-fire-sprite'),
-    exitDoor = document.getElementById('exit-door');
+    exitDoor = document.getElementById('exit-door'),
+    georgeRight = document.getElementById('george-right'),
+    georgeLeft = document.getElementById('george-left'),
+    georgeUp = document.getElementById('george-up'),
+    georgeDown = document.getElementById('george-down');
+
 
 let numberOfReloads = 0;
 
 let numberOfBricks = 70;
 let numberOfEnemies = 5 + numberOfReloads;
-

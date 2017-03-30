@@ -26,10 +26,12 @@ function createGame(selector) {
     const bombs = [],
         fires = [];
 
+    const bombermanInitialSpritesheet = localStorage.getItem('player-hero') === 'betty' ? rightImg : georgeRight;
+
     const bombermanBody = new PhysicalBody(CELL_SIZE, CELL_SIZE * 3, 0, CELL_SIZE, CELL_SIZE),
         bombermanSprite = new BombermanSprite({
             context: ctxBomberman,
-            spriteSheet: rightImg,
+            spriteSheet: bombermanInitialSpritesheet,
             totalTicksPerFrame: BOMBERMAN_SPRITE_TICKS_FRAME,
             width: CELL_SIZE,
             height: CELL_SIZE,
@@ -218,7 +220,7 @@ function createGame(selector) {
             localStorage.setItem("on_load_counter", numberOfReloads);
             console.log(numberOfReloads);
 
-            setTimeout(function () {
+            setTimeout(function() {
                 window.location.reload(true);
             }, 3000);
             return;

@@ -4,7 +4,8 @@ class BombermanSprite extends Sprite {
     constructor(options) {
         super(options);
 
-        this._sprites = [rightImg, downImg, leftImg, upImg];
+        this._sprites =
+            localStorage.getItem('player-hero') === 'betty' ? [rightImg, downImg, leftImg, upImg] : [georgeRight, georgeDown, georgeLeft, georgeUp];
     }
 
     updateSpriteSheet(dir) {
