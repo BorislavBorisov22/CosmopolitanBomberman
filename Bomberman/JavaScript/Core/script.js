@@ -1,4 +1,7 @@
 function createGame(selector) {
+
+    fillPlayerInfo();
+
     const bombermanCanvas = document.querySelector(selector),
         ctxBomberman = bombermanCanvas.getContext('2d'),
         bomb = document.getElementById('bomb-image'),
@@ -260,8 +263,6 @@ function createGame(selector) {
             enemy.body.updatePosition(enemyDirDeltas);
         });
     }
-
-
 
     return {
         start: gameLoop

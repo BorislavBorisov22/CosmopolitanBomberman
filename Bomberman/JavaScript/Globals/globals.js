@@ -52,7 +52,6 @@ const wallImage = document.getElementById('wall-image'),
     georgeDown = document.getElementById('george-down');
 
 
-let numberOfReloads = 0;
-
-let numberOfBricks = 70;
-let numberOfEnemies = 5 + numberOfReloads;
+let numberOfReloads = 0,
+    numberOfBricks = 70,
+    numberOfEnemies = 5 + numberOfReloads;

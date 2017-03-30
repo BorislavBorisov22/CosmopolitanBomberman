@@ -11,8 +11,7 @@
 
 <body>
     <h1>The BomberMan Game</h1>
-
-    <p id="player-name"></p>
+    <h2 id="timer">Time remaining:</h2>
     <!--<div id="name-container">-->
     <!--<p>Please enter your name</p>-->
     <!--<input type="text" name="myName" id="myName"  size="40">-->
@@ -26,7 +25,7 @@
     <div id="player">
         <img src="../Images/bombermanTest.png" alt="" id="bombermanImg">
     </div>
-    <h2 id="timer">Time remaining:</h2>
+
     <img id="bomb-image" src="../Images/bomb.png" alt="bomb">
     <img id="wall-image" src="../Images/wall.png" alt="wall">
     <img id="brick-image" src="../Images/brick.png" alt="brick">
@@ -47,6 +46,7 @@
     <img src="../Images/gate.png" id="exit-door">
 
     <script src="../JavaScript/Globals/globals.js"></script>
+    <script src="../JavaScript/Common/player-info.js"></script>
     <script src="../JavaScript/Core/physical-body.js"></script>
     <script src="../JavaScript/Core/sprite.js"></script>
     <script src="../JavaScript/Core/game-field.js"></script>

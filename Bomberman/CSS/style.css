@@ -7,6 +7,17 @@ h1,
     text-align: center;
 }
 
+h1,
+h2 {
+    font-family: Consolas;
+}
+
+h2 {
+    position: relative;
+    bottom: 60px;
+    right: 130px;
+}
+
 #name-container,
 #player-name {
     font-size: 25px;
@@ -59,7 +70,9 @@ h2 {
     display: none;
 }
 
+
 /*Timer*/
+
 
 /*.timer {
 	background: black;

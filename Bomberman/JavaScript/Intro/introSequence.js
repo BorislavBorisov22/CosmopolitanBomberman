@@ -64,6 +64,8 @@ function startGame() {
     $("#right-hero").animate({ right: '-50%' }, 1200);
     $("#start-button").animate({ top: '110%' }, 1200);
 
+    localStorage.setItem('username', $('#name-field').val());
+
     setTimeout(function() {
         document.location = "hero-selection.html";
     }, 2000);
