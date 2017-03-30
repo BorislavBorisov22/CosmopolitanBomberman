@@ -211,14 +211,6 @@ function createGame(selector) {
             ctxBomberman.font = "150px Georgia";
             ctxBomberman.fillText('Level Complete!', 5, bombermanCanvas.height / 2, 1000);
 
-            //check this requests
-            numberOfReloads = localStorage.getItem('on_load_counter');
-            if (numberOfReloads === null) {
-                numberOfReloads = 0;
-            }
-            numberOfReloads++;
-            localStorage.setItem("on_load_counter", numberOfReloads);
-            console.log(numberOfReloads);
 
             setTimeout(function() {
                 window.location.reload(true);
@@ -268,6 +260,8 @@ function createGame(selector) {
             enemy.body.updatePosition(enemyDirDeltas);
         });
     }
+
+
 
     return {
         start: gameLoop
