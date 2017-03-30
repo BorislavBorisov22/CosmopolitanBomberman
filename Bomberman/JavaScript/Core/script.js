@@ -284,7 +284,7 @@ function createGame(selector) {
 
         ctxBomberman.fillStyle = 'pink';
         ctxBomberman.font = "150px Georgia";
-        let msg = 'You have reached level ' + level + ', press R to reset game!';
+        let msg = 'You have reached level ' + (level + 1) + ', press R to reset game!';
         ctxBomberman.fillText(msg, 5, bombermanCanvas.height / 2 + 100, 1000);
     }
 
