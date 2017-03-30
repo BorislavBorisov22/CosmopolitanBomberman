@@ -25,9 +25,7 @@ const field = [
 const CELL_SIZE = 37,
     WALL_CHAR = '*',
     BRICK_CHAR = '-',
-    INITIAL_BOMBS_COUNT = 3,
-    FREE_SPACE_CHAR = ' ';
-
+    INITIAL_BOMBS_COUNT = 3;
 // bomberman sprite constants
 const BOMBERMAN_SPRITE_TICKS_FRAME = 5,
     BOMBERMAN_TOTAL_SPRITESHEETS = 4;
@@ -50,8 +48,8 @@ const wallImage = document.getElementById('wall-image'),
     gameOverImage = document.getElementById('game-over-image');
 
 let level = Number(localStorage.getItem('on_load_counter')) || 0;
-
 level++;
+
 localStorage.setItem("on_load_counter", level);
 
 let numberOfBricks = 70 + level * 5;
