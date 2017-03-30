@@ -14,12 +14,13 @@ function createGame(selector) {
     bombCanvas.width = field[0].length * CELL_SIZE;
     bombCanvas.height = field.length * CELL_SIZE;
 
-    let timer = new Timer();
+    const timer = new Timer();
     setInterval(function() {
         timer.updateTimer();
     }, 1000);
 
     generateStones(field);
+
     const nonWalkablesObj = drawGameField(field, ctxBomb);
 
     const nonWalkables = nonWalkablesObj.nonWalkables,
@@ -215,16 +216,18 @@ function createGame(selector) {
             let msg = 'Level ' + (level + 1) + ' complete!';
             ctxBomberman.fillText(msg, 5, bombermanCanvas.height / 2, 1000);
 
-
             setTimeout(function() {
                 window.location.reload(true);
             }, 3000);
             return;
         }
 
-        if (isGameOver() || isPlayerDead) {
+        if (isGameOver() || isPlayerDead || timer.time <= 0) {
             level = 0;
             localStorage.setItem("on_load_counter", level);
+
+            setTimeout(drawGameOverImage, 200);
+
             return;
         }
 
@@ -243,23 +246,30 @@ function createGame(selector) {
         return gameObject;
     }
 
-    document.onkeydown = fkey;
-    document.onkeypress = fkey;
-    document.onkeyup = fkey;
+    // document.onkeydown = fkey;
+    // document.onkeypress = fkey;
+    // document.onkeyup = fkey;
 
-    let wasPressed = false;
+    // let wasPressed = false;
 
-    function fkey(e){
-        e = e || window.event;
-        if (wasPressed){
-            return;
+    // function fkey(e) {
+    //     e = e || window.event;
+    //     if (wasPressed) {
+    //         return;
+    //     }
+    //     if (e.keyCode === 82) {
+    //         level = 0;
+    //         localStorage.setItem("on_load_counter", level);
+    //         wasPressed = true;
+    //     }
+    // }
+
+    window.addEventListener('keydown', function(ev) {
+        if (ev.keyCode === 82) {
+            window.location.reload(true);
+            localStorage.setItem('on_load_counter', 1);
         }
-        if (e.keyCode === 116) {
-            level = 0;
-            localStorage.setItem("on_load_counter", level);
-            wasPressed = true;
-        }
-    }
+    });
 
     function updateEnemies(enemies) {
         enemies.forEach(enemy => {
@@ -283,6 +293,15 @@ function createGame(selector) {
 
             enemy.body.updatePosition(enemyDirDeltas);
         });
+    }
+
+    function drawGameOverImage(context) {
+        ctxBomberman.drawImage(gameOverImage, 0, 0, gameOverImage.width, gameOverImage.height, 0, 0, bombermanCanvas.width, bombermanCanvas.height);
+
+        ctxBomberman.fillStyle = 'pink';
+        ctxBomberman.font = "150px Georgia";
+        let msg = 'You have reached level ' + (level + 1) + ', press R to reset game!';
+        ctxBomberman.fillText(msg, 5, bombermanCanvas.height / 2 + 100, 1000);
     }
 
     return {

@@ -36,7 +36,7 @@ startButton.addEventListener('click', function() {
 
     setTimeout(function() {
         window.location = 'game.html';
-    }, 2000);
+    }, 500);
 });
 
 bettySelect.checked = true;

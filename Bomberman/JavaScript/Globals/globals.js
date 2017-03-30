@@ -46,18 +46,13 @@ const wallImage = document.getElementById('wall-image'),
     georgeRight = document.getElementById('george-right'),
     georgeLeft = document.getElementById('george-left'),
     georgeUp = document.getElementById('george-up'),
-    georgeDown = document.getElementById('george-down');
+    georgeDown = document.getElementById('george-down'),
+    gameOverImage = document.getElementById('game-over-image');
 
-
-
-let level = Number(localStorage.getItem('on_load_counter'));
-if (level === null) {
-    level = 0;
-}
+let level = Number(localStorage.getItem('on_load_counter')) || 0;
 
 level++;
 localStorage.setItem("on_load_counter", level);
-
 
 let numberOfBricks = 70 + level * 5;
 let numberOfEnemies = 4 + level;

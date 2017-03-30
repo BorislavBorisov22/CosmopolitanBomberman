@@ -9,8 +9,11 @@ class Timer {
         let text = this.h2.innerText.split(':')[0] + ":";
         number -= 1;
         this.h2.innerText = text + number;
-        if (number < 1) {
-            //alert("Game Over");
-        }
+
+        return number;
+    }
+
+    get time() {
+        return Number(this.h2.innerText.split(':')[1]);
     }
 }
