@@ -41,10 +41,7 @@ const wallImage = document.getElementById('wall-image'),
     downImg = document.getElementById('down'),
     bombImg = document.getElementById('bomb-sprite'),
     enemyImg = document.getElementById('enemy-sprite'),
-    leftFireImg = document.getElementById('left-fire-sprite'),
     rightFireImg = document.getElementById('right-fire-sprite'),
-    upFireImg = document.getElementById('up-fire-sprite'),
-    downFireImg = document.getElementById('down-fire-sprite'),
     exitDoor = document.getElementById('exit-door'),
     georgeRight = document.getElementById('george-right'),
     georgeLeft = document.getElementById('george-left'),
@@ -52,6 +49,15 @@ const wallImage = document.getElementById('wall-image'),
     georgeDown = document.getElementById('george-down');
 
 
-let numberOfReloads = 0,
-    numberOfBricks = 70,
-    numberOfEnemies = 5 + numberOfReloads;
+
+let level = Number(localStorage.getItem('on_load_counter'));
+if (level === null) {
+    level = 0;
+}
+
+level++;
+localStorage.setItem("on_load_counter", level);
+
+
+let numberOfBricks = 70 + level * 5;
+let numberOfEnemies = 4 + level;
