@@ -213,7 +213,7 @@ function createGame(selector) {
         if (collisionDetector.haveSameCoordinates(bomberman.body, door)) {
             ctxBomberman.fillStyle = 'yellowgreen';
             ctxBomberman.font = "150px Georgia";
-            let msg = 'Level ' + (level + 1) + ' complete!';
+            let msg = 'Level ' + (level) + ' complete!';
             ctxBomberman.fillText(msg, 5, bombermanCanvas.height / 2, 1000);
 
             setTimeout(function() {
@@ -246,28 +246,12 @@ function createGame(selector) {
         return gameObject;
     }
 
-    // document.onkeydown = fkey;
-    // document.onkeypress = fkey;
-    // document.onkeyup = fkey;
-
-    // let wasPressed = false;
-
-    // function fkey(e) {
-    //     e = e || window.event;
-    //     if (wasPressed) {
-    //         return;
-    //     }
-    //     if (e.keyCode === 82) {
-    //         level = 0;
-    //         localStorage.setItem("on_load_counter", level);
-    //         wasPressed = true;
-    //     }
-    // }
 
     window.addEventListener('keydown', function(ev) {
-        if (ev.keyCode === 82) {
+        if (ev.keyCode === 82 || ev.keyCode === 116) {
             window.location.reload(true);
-            localStorage.setItem('on_load_counter', 1);
+            level = 0;
+            localStorage.setItem('on_load_counter', level);
         }
     });
 
@@ -295,12 +279,12 @@ function createGame(selector) {
         });
     }
 
-    function drawGameOverImage(context) {
+    function drawGameOverImage() {
         ctxBomberman.drawImage(gameOverImage, 0, 0, gameOverImage.width, gameOverImage.height, 0, 0, bombermanCanvas.width, bombermanCanvas.height);
 
         ctxBomberman.fillStyle = 'pink';
         ctxBomberman.font = "150px Georgia";
-        let msg = 'You have reached level ' + (level + 1) + ', press R to reset game!';
+        let msg = 'You have reached level ' + level + ', press R to reset game!';
         ctxBomberman.fillText(msg, 5, bombermanCanvas.height / 2 + 100, 1000);
     }
 
