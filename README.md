@@ -3,19 +3,18 @@
 ## Youtube link for the game:
 https://www.youtube.com/watch?v=P1II8pm3BzU
 
-[!LoginPage]()
+![LoginPage](https://github.com/Vasilev87/CosmopolitanBomberman/blob/master/UI-images/login-page.png)
 
 ## Game Field
 For each game level, a map with different number of bricks and stones is generated with an escape door underneath one of the stones or bricks
 
-![GameField:]()
+![GameField](https://github.com/Vasilev87/CosmopolitanBomberman/blob/master/UI-images/game-field.png)
 
 You can choose from two heroes:
 - Betty: the bombergirl
 - George: the bomberman
 
-![Heroes]()
-
+![Heroes](https://github.com/Vasilev87/CosmopolitanBomberman/blob/master/UI-images/hero-selection.png)
 
 ## Game Description
 
