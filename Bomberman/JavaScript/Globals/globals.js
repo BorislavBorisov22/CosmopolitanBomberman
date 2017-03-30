@@ -1,5 +1,6 @@
 'use strict';
 
+let PLAYER_USERNAME;
 let isPlayerDead = false;
 
 const field = [

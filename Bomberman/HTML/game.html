@@ -22,7 +22,6 @@
     <div id="game-container">
         <canvas id="bomb-canvas"></canvas>
         <canvas id="game-canvas"></canvas>
-
     </div>
     <div id="player">
         <img src="../Images/bombermanTest.png" alt="" id="bombermanImg">
@@ -56,12 +55,11 @@
     <script src="../JavaScript/Core/timer.js"></script>
     <script>
         window.addEventListener('load', function() {
-            console.log(isPlayerDead + '----');
-
             const game = createGame("#game-canvas");
             game.start();
-
         });
+
+        console.log(PLAYER_USERNAME);
         //Timer
         /*var fiveMinutes = 60 * 5,
         display = document.querySelector('#time');

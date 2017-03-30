@@ -1,105 +1,31 @@
-<<<<<<< HEAD
+<!DOCTYPE>
 <html>
-	<head>
-		<script src="../JavaScript/Jquery/jquery-3.2.0.min.js"></script>
-		<link rel="stylesheet" href="../CSS/style-index.css" />
-		<script src="../JavaScript/Intro/introSequence.js"></script>
-	</head>
-	<body onload="setTimeout(initial(),3000)">
-		<img id="team" class="initial" src="../Images/team.png" />
-		<img id="image" class="initial" src="../Images/h1.png" />
-		<div id="login-area">
-			<img class="initial" id="logo" src="../Images/logo.png" />
-			<input type="text" class="initial" id="name-field" placeholder="Enter Your Name Here!" />
-			<div id="tip-arrow" class="initial">
-				<h2> Use the Arrow Keys to Move </h2>
-				<img id="arrows" src="../Images/arrows.png" />
-			</div>
-			<div id="tip-spacebar" class="initial">
-				<h2> Use the Spacebar to Deploy Bombs </h2>
-				<img id="spacebar" src="../Images/spacebar.png" />
-			</div>
-			<img id="start-button" src="../Images/start-button.png" onclick="startGame()"/>
-			<img class="initial" id="right-hero" src="../Images/right-hero.png" />
-			<img class="initial" id="left-hero" src="../Images/left-hero.png" />
-		</div>
-	</body>
-=======
-<!DOCTYPE html>
-<html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>The BomberMan</title>
-    <link rel="stylesheet" href="../CSS/style.css">
-    <!--<script src="../JavaScript/Jquery/jquery-1.11.3.js"></script>-->
-    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+    <script src="../JavaScript/Jquery/jquery-3.2.0.min.js"></script>
+    <link rel="stylesheet" href="../CSS/style-index.css" />
+    <script src="'../JavaScript/Globals/globals.js'"></script>
+    <script src="../JavaScript/Intro/introSequence.js"></script>
 </head>
 
-<body>
-    <h1>The BomberMan Game</h1>
-
-    <p id="player-name"></p>
-    <!--<div id="name-container">-->
-    <!--<p>Please enter your name</p>-->
-    <!--<input type="text" name="myName" id="myName"  size="40">-->
-    <!--<input type="button" value="Start Game" onclick="getName()">-->
-    <!--</div>-->
-    <!--<div class="timer">Time left <span id="time">05:00</span> minutes!</div>-->
-    <div id="game-container">
-        <canvas id="bomb-canvas"></canvas>
-        <canvas id="game-canvas"></canvas>
-
+<body onload="setTimeout(initial(),3000)">
+    <img id="team" class="initial" src="../Images/team.png" />
+    <img id="image" class="initial" src="../Images/h1.png" />
+    <div id="login-area">
+        <img class="initial" id="logo" src="../Images/logo.png" />
+        <input type="text" class="initial" id="name-field" placeholder="Enter Your Name Here!" />
+        <div id="tip-arrow" class="initial">
+            <h2> Use the Arrow Keys to Move </h2>
+            <img id="arrows" src="../Images/arrows.png" />
+        </div>
+        <div id="tip-spacebar" class="initial">
+            <h2> Use the Spacebar to Deploy Bombs </h2>
+            <img id="spacebar" src="../Images/spacebar.png" />
+        </div>
+        <img id="start-button" src="../Images/start-button.png" onclick="startGame()" />
+        <img class="initial" id="right-hero" src="../Images/right-hero.png" />
+        <img class="initial" id="left-hero" src="../Images/left-hero.png" />
     </div>
-    <div id="player">
-        <img src="../Images/bombermanTest.png" alt="" id="bombermanImg">
-    </div>
-    <h2 id="timer">Time remaining:</h2>
-    <img id="bomb-image" src="../Images/bomb.png" alt="bomb">
-    <img id="wall-image" src="../Images/wall.png" alt="wall">
-    <img id="brick-image" src="../Images/brick.png" alt="brick">
-    <img src="../Images/right.png" id="right">
-    <img src="../Images/left.png" id="left">
-    <img src="../Images/up.png" id="up">
-    <img src="../Images/down.png" id="down">
-    <img src="../Images/bomb-sprite.png" id="bomb-sprite">
-    <img src="../Images/enemy-sprite.png" id="enemy-sprite">
-    <img src="../Images/downFire.png" id="down-fire-sprite">
-    <img src="../Images/rightFire.png" id="right-fire-sprite">
-    <img src="../Images/leftFire.png" id="left-fire-sprite">
-    <img src="../Images/upFire.png" id="up-fire-sprite">
-    <img src="../Images/gate.png" id="exit-door">
-
-    <script src="../JavaScript/Globals/globals.js"></script>
-    <script src="../JavaScript/Core/physical-body.js"></script>
-    <script src="../JavaScript/Core/sprite.js"></script>
-    <script src="../JavaScript/Core/game-field.js"></script>
-    <script src="../JavaScript/Core/collision-detector.js"></script>
-    <script src="../JavaScript/Core/bomb-fire.js"></script>
-    <script src="../JavaScript/Core/script.js"></script>
-    <script src="../JavaScript/Enemy/generateEnemies.js"></script>
-    <script src="../JavaScript/Common/drawExitGate.js"></script>
-    <script src="../JavaScript/Core/bomberman-sprite.js"></script>
-    <script src="../JavaScript/Core/timer.js"></script>
-    <script>
-        window.addEventListener('load', function() {
-            console.log(isPlayerDead + '----');
-
-            const game = createGame("#game-canvas");
-            game.start();
-
-        });
-        //Timer
-        /*var fiveMinutes = 60 * 5,
-        display = document.querySelector('#time');
-        startTimer(fiveMinutes, display); */
-        //    function getName() {
-        //        document.getElementById("game-container").style.display = "block";
-        //        var x = document.getElementById("myName").value;
-        //        document.getElementById("player-name").innerHTML = "Hello," + x;
-        //        document.getElementById("name-container").style.display = "none";
-    </script>
 </body>
 
->>>>>>> origin/master
 </html>

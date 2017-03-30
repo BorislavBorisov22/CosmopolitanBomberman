@@ -11,7 +11,7 @@ function createGame(selector) {
     bombCanvas.width = field[0].length * CELL_SIZE;
     bombCanvas.height = field.length * CELL_SIZE;
 
-    let timer = new Timer();
+    const timer = new Timer();
     setInterval(function() {
         timer.updateTimer();
     }, 1000);
@@ -245,7 +245,7 @@ function createGame(selector) {
                 const initialDirection = enemy.body.direction;
 
                 while (initialDirection === enemy.body.direction) {
-                    enemy.body.direction = enemy.body.direction = (Math.random() * 4) | 0;
+                    enemy.body.direction = enemy.body.direction = (Math.random() * enemyDirDeltas.length) | 0;
                 }
 
                 return;
