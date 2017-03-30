@@ -10,9 +10,8 @@ function createBombFire(x, y, context) {
 
     const rightFireBody = new PhysicalBody(x, y, 0, CELL_SIZE, CELL_SIZE);
 
-    return {sprite: rightFireSprite, body: rightFireBody};
+    return { sprite: rightFireSprite, body: rightFireBody };
 }
-
 
 class BombFireSprite extends Sprite {
     constructor(options) {
