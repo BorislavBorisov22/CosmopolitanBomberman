@@ -65,6 +65,6 @@ function startGame() {
     $("#start-button").animate({ top: '110%' }, 1200);
 
     setTimeout(function() {
-        document.location = "game.html";
+        document.location = "hero-selection.html";
     }, 2000);
 }
