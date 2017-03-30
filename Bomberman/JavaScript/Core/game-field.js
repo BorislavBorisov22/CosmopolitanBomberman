@@ -20,8 +20,7 @@ function generateStones(matrix) {
         const col = getRandomInt(1, field[0].length - 1);
 
         // check if random brick is in start position of bomberman
-        if ((row === 3 && col === 1) || (row === 4 && col === 1) || (row === 3 && col === 2) ||
-            (row === 2 && col === 1) || (row === 1 && col === 1) || (row === 1 && col === 2)) {
+        if (!checkForHeroFreedom(row, col)) {
             i -= 1;
             continue;
         } else if ((row % 2 === 0 && col % 2 === 0)) {
@@ -55,7 +54,7 @@ function drawGameField(field, context) {
                 stoneToDraw = wallImage;
             } else if (currentSymbol === BRICK_CHAR) {
                 stoneToDraw = brickImage;
-                bricks.push({ x: CELL_SIZE * j, y: CELL_SIZE * i });
+                bricks.push({x: CELL_SIZE * j, y: CELL_SIZE * i});
             } else {
                 continue;
             }
@@ -71,28 +70,34 @@ function drawGameField(field, context) {
                 CELL_SIZE
             );
 
-            nonWalkables.push({ x: CELL_SIZE * j, y: CELL_SIZE * i });
+            nonWalkables.push({x: CELL_SIZE * j, y: CELL_SIZE * i});
         }
     }
 
-    return { nonWalkables: nonWalkables, bricks: bricks };
+    return {nonWalkables: nonWalkables, bricks: bricks};
 }
 
-
+function checkForHeroFreedom(row, col) {
+    if ((row === 3 && col === 1) || (row === 4 && col === 1) || (row === 5 && col === 1) || (row === 3 && col === 2) ||
+        (row === 2 && col === 1) || (row === 1 && col === 1) || (row === 1 && col === 2) || (row === 3 && col === 3)) {
+        return false;
+    }
+    return true;
+}
 //Timer
 /*function startTimer(duration, display) {
-    var timer = duration, minutes, seconds;
-    setInterval(function () {
-        minutes = parseInt(timer / 60, 10)
-        seconds = parseInt(timer % 60, 10);
+ var timer = duration, minutes, seconds;
+ setInterval(function () {
+ minutes = parseInt(timer / 60, 10)
+ seconds = parseInt(timer % 60, 10);
 
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
+ minutes = minutes < 10 ? "0" + minutes : minutes;
+ seconds = seconds < 10 ? "0" + seconds : seconds;
 
-        display.textContent = minutes + ":" + seconds;
+ display.textContent = minutes + ":" + seconds;
 
-        if (--timer < 0) {
-            timer = duration;
-        }
-    }, 1000);
-} */
+ if (--timer < 0) {
+ timer = duration;
+ }
+ }, 1000);
+ } */

@@ -5,38 +5,50 @@ function initial() {
         .delay(600)
         .fadeIn(1200, function() {})
         .delay(600)
-        .fadeOut(1200, function() { intro(); });
+        .fadeOut(1200, function() {
+            intro();
+        });
 }
 
 function intro() {
     $("#image")
         .fadeIn(1200, function() {})
         .delay(600)
-        .fadeOut(1200, function() { showUI() });
+        .fadeOut(1200, function() {
+            showUI()
+        });
 }
 
 function showUI() {
     $("#right-hero")
         .fadeIn(600, function() {});
     $("#left-hero")
-        .fadeIn(600, function() { showLogo() });
+        .fadeIn(600, function() {
+            showLogo()
+        });
 }
 
 function showLogo() {
     $("#logo")
-        .show(700, function() { showNameField() });
+        .show(700, function() {
+            showNameField()
+        });
 }
 
 function showNameField() {
     $("#name-field")
-        .show(700, function() { showHints() });
+        .show(700, function() {
+            showHints()
+        });
 }
 
 function showHints() {
     $("#tip-arrow")
         .show(700, function() {});
     $("#tip-spacebar")
-        .show(700, function() { showStartButton() });
+        .show(700, function() {
+            showStartButton()
+        });
 }
 
 function showStartButton() {
@@ -53,7 +65,6 @@ function startGame() {
     $("#start-button").animate({ top: '110%' }, 1200);
 
     setTimeout(function() {
-
-        document.location = "hero-selection.html";
+        document.location = "game.html";
     }, 2000);
 }

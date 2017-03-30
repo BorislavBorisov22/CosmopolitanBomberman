@@ -11,7 +11,7 @@ function createGame(selector) {
     bombCanvas.width = field[0].length * CELL_SIZE;
     bombCanvas.height = field.length * CELL_SIZE;
 
-    const timer = new Timer();
+    let timer = new Timer();
     setInterval(function() {
         timer.updateTimer();
     }, 1000);
@@ -78,7 +78,7 @@ function createGame(selector) {
         bomberman.body.updateDirection(ev.keyCode, keyCodeDirs);
         bomberman.body.updatePosition(bombermanDirDeltas);
 
-        bomberman.sprite.updateSpritesheet(bombermanBody.direction);
+        bomberman.sprite.updateSpriteSheet(bombermanBody.direction);
     });
 
     // placing bombs event
@@ -100,7 +100,7 @@ function createGame(selector) {
             totalSprites: 5,
         });
 
-        function checkIfCordinatesAreModuleofCellSize(cords) {
+        function checkIfCoordinatesAreModuleOfCellSize(cords) {
             if (cords % 37 === 0) {
                 return cords;
             } else {
@@ -117,8 +117,8 @@ function createGame(selector) {
             }
         }
 
-        let x = checkIfCordinatesAreModuleofCellSize(bombermanBody.x);
-        let y = checkIfCordinatesAreModuleofCellSize(bombermanBody.y);
+        let x = checkIfCoordinatesAreModuleOfCellSize(bombermanBody.x);
+        let y = checkIfCoordinatesAreModuleOfCellSize(bombermanBody.y);
 
         const bombToPlaceBody = new PhysicalBody(x, y, 0, CELL_SIZE, CELL_SIZE),
             bombToPlace = getGameObject(bombToPlaceSprite, bombToPlaceBody);
@@ -140,7 +140,7 @@ function createGame(selector) {
     });
 
     function destroyBricksInRange(bomb) {
-        let targetBricks = bricks.filter((b, index) => {
+        let targetBricks = bricks.filter((b) => {
 
             const diffX = Math.abs(b.x - bomb.x),
                 diffY = Math.abs(b.y - bomb.y);
@@ -150,11 +150,11 @@ function createGame(selector) {
             return isInRange;
         });
 
-        const rightFire = createBombFire(rightFireImg, bomb.x + CELL_SIZE, bomb.y, ctxBomberman),
-            leftFire = createBombFire(leftFireImg, bomb.x - CELL_SIZE, bomb.y, ctxBomberman),
-            upFire = createBombFire(upFireImg, bomb.x, bomb.y + CELL_SIZE, ctxBomberman),
-            downFire = createBombFire(downFireImg, bomb.x, bomb.y - CELL_SIZE, ctxBomberman),
-            centerFire = createBombFire(rightFireImg, bomb.x, bomb.y, ctxBomberman);
+        const rightFire = createBombFire(bomb.x + CELL_SIZE, bomb.y, ctxBomberman),
+            leftFire = createBombFire(bomb.x - CELL_SIZE, bomb.y, ctxBomberman),
+            upFire = createBombFire(bomb.x, bomb.y + CELL_SIZE, ctxBomberman),
+            downFire = createBombFire(bomb.x, bomb.y - CELL_SIZE, ctxBomberman),
+            centerFire = createBombFire(bomb.x, bomb.y, ctxBomberman);
 
         fires.push(rightFire, leftFire, upFire, downFire, centerFire);
 
@@ -245,7 +245,7 @@ function createGame(selector) {
                 const initialDirection = enemy.body.direction;
 
                 while (initialDirection === enemy.body.direction) {
-                    enemy.body.direction = enemy.body.direction = (Math.random() * enemyDirDeltas.length) | 0;
+                    enemy.body.direction = enemy.body.direction = getRandomInt(0, 4);
                 }
 
                 return;

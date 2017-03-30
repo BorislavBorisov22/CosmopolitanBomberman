@@ -47,7 +47,7 @@ body {
 h2 {
     float: right;
     margin-right: 100px;
-    color: darkmagenta;
+    color: black;
 }
 
 #test {
@@ -59,9 +59,7 @@ h2 {
     display: none;
 }
 
-
 /*Timer*/
-
 
 /*.timer {
 	background: black;

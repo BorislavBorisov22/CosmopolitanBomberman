@@ -1,13 +1,13 @@
- 'use strict';
+'use strict';
 
- class BombermanSprite extends Sprite {
-     constructor(options) {
-         super(options);
+class BombermanSprite extends Sprite {
+    constructor(options) {
+        super(options);
 
-         this._sprites = [rightImg, downImg, leftImg, upImg];
-     }
+        this._sprites = [rightImg, downImg, leftImg, upImg];
+    }
 
-     updateSpritesheet(dir) {
-         this._spriteSheet = this._sprites[dir];
-     }
- }
+    updateSpriteSheet(dir) {
+        this._spriteSheet = this._sprites[dir];
+    }
+}
