@@ -209,7 +209,8 @@ function createGame(selector) {
         if (collisionDetector.haveSameCoordinates(bomberman.body, door)) {
             ctxBomberman.fillStyle = 'yellowgreen';
             ctxBomberman.font = "150px Georgia";
-            ctxBomberman.fillText('Level Complete!', 5, bombermanCanvas.height / 2, 1000);
+            let msg = 'Level ' + (level + 1) + ' complete!';
+            ctxBomberman.fillText(msg, 5, bombermanCanvas.height / 2, 1000);
 
 
             setTimeout(function() {
@@ -219,6 +220,8 @@ function createGame(selector) {
         }
 
         if (isGameOver() || isPlayerDead) {
+            level = 0;
+            localStorage.setItem("on_load_counter", level);
             return;
         }
 
@@ -235,6 +238,24 @@ function createGame(selector) {
         const gameObject = { sprite: spriteObj, body: physicalBodyObj };
 
         return gameObject;
+    }
+
+    document.onkeydown = fkey;
+    document.onkeypress = fkey;
+    document.onkeyup = fkey;
+
+    let wasPressed = false;
+
+    function fkey(e){
+        e = e || window.event;
+        if (wasPressed){
+            return;
+        }
+        if (e.keyCode === 116) {
+            level = 0;
+            localStorage.setItem("on_load_counter", level);
+            wasPressed = true;
+        }
     }
 
     function updateEnemies(enemies) {
