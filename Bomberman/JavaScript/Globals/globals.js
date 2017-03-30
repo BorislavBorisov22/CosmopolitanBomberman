@@ -25,7 +25,6 @@ const field = [
 const CELL_SIZE = 37,
     WALL_CHAR = '*',
     BRICK_CHAR = '-',
-    NUMBER_OF_ENEMIES = 5,
     INITIAL_BOMBS_COUNT = 3,
     FREE_SPACE_CHAR = ' ';
 
@@ -48,4 +47,8 @@ const wallImage = document.getElementById('wall-image'),
     downFireImg = document.getElementById('down-fire-sprite'),
     exitDoor = document.getElementById('exit-door');
 
+let numberOfReloads = 0;
+
 let numberOfBricks = 70;
+let numberOfEnemies = 5 + numberOfReloads;
+

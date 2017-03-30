@@ -37,7 +37,7 @@ function createGame(selector) {
         });
 
     const bomberman = getGameObject(bombermanSprite, bombermanBody),
-        enemies = generateEnemies(field, NUMBER_OF_ENEMIES, ctxBomberman);
+        enemies = generateEnemies(field, numberOfEnemies, ctxBomberman);
 
     bomberman.bombsCount = INITIAL_BOMBS_COUNT;
 
@@ -101,11 +101,11 @@ function createGame(selector) {
         });
 
         function checkIfCoordinatesAreModuleOfCellSize(cords) {
-            if (cords % 37 === 0) {
+            if (cords % CELL_SIZE === 0) {
                 return cords;
             } else {
-                let reminder = cords % 37;
-                let toAdd = 37 - reminder;
+                let reminder = cords % CELL_SIZE;
+                let toAdd = CELL_SIZE - reminder;
                 //backward && right
                 if (bomberman.body.direction === 1 || bomberman.body.direction === 0) {
                     return cords + toAdd;
@@ -207,8 +207,20 @@ function createGame(selector) {
         if (collisionDetector.haveSameCoordinates(bomberman.body, door)) {
             ctxBomberman.fillStyle = 'yellowgreen';
             ctxBomberman.font = "150px Georgia";
-            ctxBomberman.fillText('Level Complete!', 10, bombermanCanvas.height / 2);
-            //window.location.reload(true);
+            ctxBomberman.fillText('Level Complete!', 5, bombermanCanvas.height / 2, 1000);
+
+            //check this requests
+            numberOfReloads = localStorage.getItem('on_load_counter');
+            if (numberOfReloads === null) {
+                numberOfReloads = 0;
+            }
+            numberOfReloads++;
+            localStorage.setItem("on_load_counter", numberOfReloads);
+            console.log(numberOfReloads);
+
+            setTimeout(function () {
+                window.location.reload(true);
+            }, 3000);
             return;
         }
 

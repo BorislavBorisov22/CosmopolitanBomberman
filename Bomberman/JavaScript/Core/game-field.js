@@ -34,6 +34,8 @@ function generateStones(matrix) {
         if (!door.isPlaced) {
             door.x = col * CELL_SIZE;
             door.y = row * CELL_SIZE;
+            console.log(row);
+            console.log(col);
             door.isPlaced = true;
         }
     }

@@ -32,7 +32,7 @@ class CollisionDetector {
         const distance = Math.sqrt(diffX * diffX + diffY * diffY);
 
         const areColliding = distance < firstBodyRadius + secondBodyRadius - offset;
-        console.log(areColliding);
+
         return areColliding;
     }
 }
